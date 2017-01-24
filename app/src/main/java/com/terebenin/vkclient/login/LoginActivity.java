@@ -2,12 +2,14 @@ package com.terebenin.vkclient.login;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.terebenin.vkclient.R;
+import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
@@ -48,25 +50,29 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.layout_login);
         ButterKnife.bind(this);
 
+        btnSignIn.setOnClickListener((View view) -> {
+            VKSdk.login(this, sMyScope);
+        });
+
         VKSdk.wakeUpSession(this, new VKCallback<VKSdk.LoginState>() {
             @Override
             public void onResult(VKSdk.LoginState res) {
-//                if (isResumed) {
-                    switch (res) {
-                        case LoggedOut:
-                            Toast.makeText(LoginActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-//                            showLogin();
-                            break;
-                        case LoggedIn:
-                            Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
-//                            showLogout();
-                            break;
-                        case Pending:
-                            break;
-                        case Unknown:
-                            break;
-                    }
-//                }
+                switch (res) {
+                    case LoggedOut:
+                        Toast.makeText(LoginActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
+                        break;
+                    case LoggedIn:
+                        Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle(R.string.alertDialogTitle)
+                                .setMessage(VKAccessToken.currentToken().accessToken)
+                                .show();
+                        break;
+                    case Pending:
+                        break;
+                    case Unknown:
+                        break;
+                }
             }
 
             @Override
@@ -75,9 +81,6 @@ public class LoginActivity extends Activity {
             }
         });
 
-        btnSignIn.setOnClickListener((View view) -> {
-            VKSdk.login(this, sMyScope);
-        });
 
         String[] fingerprint = VKUtil.getCertificateFingerprint(this, this.getPackageName());
         Log.d("Fingerprint", fingerprint[0]);
