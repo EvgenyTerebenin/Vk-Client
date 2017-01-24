@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Vk client</string>
+    <integer name="com_vk_sdk_AppId">5836636</integer>
+    <string name="action_sign_in_short">Sign in with VK</string>
+</resources>
