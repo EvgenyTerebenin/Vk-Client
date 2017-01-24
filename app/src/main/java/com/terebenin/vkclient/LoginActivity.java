@@ -1,5 +1,6 @@
 package com.terebenin.vkclient;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -18,7 +19,7 @@ import com.vk.sdk.api.VKError;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class LoginActivity extends FragmentActivity {
+public class LoginActivity extends Activity {
 
     private boolean isResumed = false;
 
