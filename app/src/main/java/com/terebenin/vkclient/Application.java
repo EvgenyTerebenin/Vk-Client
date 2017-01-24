@@ -3,6 +3,7 @@ package com.terebenin.vkclient;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.terebenin.vkclient.login.LoginActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
