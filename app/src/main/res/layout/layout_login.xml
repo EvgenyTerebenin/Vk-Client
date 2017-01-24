@@ -5,7 +5,7 @@
               android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/sign_in_button"
+        android:id="@+id/uiBtnSignIn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
