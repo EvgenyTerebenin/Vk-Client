@@ -2,6 +2,7 @@
     <string name="app_name">Vk client</string>
     <integer name="com_vk_sdk_AppId">5836636</integer>
     <string name="action_sign_in_short">Sign in with VK</string>
-    <string name="alertDialogTitle">User token</string>
     <string name="user_token">User token:</string>
+    <string name="logged_out">Logged out</string>
+    <string name="logged_in">Logged in</string>
 </resources>

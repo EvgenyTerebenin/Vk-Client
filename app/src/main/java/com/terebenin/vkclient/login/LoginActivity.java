@@ -3,8 +3,6 @@ package com.terebenin.vkclient.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,7 +13,6 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
-import com.vk.sdk.util.VKUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +25,6 @@ import butterknife.ButterKnife;
 public class LoginActivity extends Activity {
 
     static final String USER_TOKEN = "USER_TOKEN";
-    private boolean isResumed = false;
 
     /**
      * Scope is set of required permissions for your application
@@ -60,15 +56,10 @@ public class LoginActivity extends Activity {
             public void onResult(VKSdk.LoginState res) {
                 switch (res) {
                     case LoggedOut:
-                        Toast.makeText(LoginActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, R.string.logged_out, Toast.LENGTH_SHORT).show();
                         break;
                     case LoggedIn:
-                        Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
-
-//                        new AlertDialog.Builder(LoginActivity.this)
-//                                .setTitle(R.string.alertDialogTitle)
-//                                .setMessage(VKAccessToken.currentToken().accessToken)
-//                                .show();
+                        Toast.makeText(LoginActivity.this, R.string.logged_in, Toast.LENGTH_SHORT).show();
                         break;
                     case Pending:
                         break;
@@ -79,12 +70,8 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onError(VKError error) {
-                //TODO
             }
         });
-
-        String[] fingerprint = VKUtil.getCertificateFingerprint(this, this.getPackageName());
-        Log.d("Fingerprint", fingerprint[0]);
     }
 
     @Override
@@ -92,7 +79,6 @@ public class LoginActivity extends Activity {
         VKCallback<VKAccessToken> callback = new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                // User passed Authorization
                 Intent intent = new Intent(LoginActivity.this, LoggedInActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(USER_TOKEN, VKAccessToken.currentToken().accessToken);
@@ -102,7 +88,6 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onError(VKError error) {
-                // User didn't pass Authorization
             }
         };
 

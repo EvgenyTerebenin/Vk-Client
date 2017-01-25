@@ -16,7 +16,7 @@ import static com.terebenin.vkclient.login.LoginActivity.USER_TOKEN;
  * Created by evgeny on 25.01.17.
  */
 
-public class LoggedInActivity extends Activity{
+public class LoggedInActivity extends Activity {
 
     @BindView(R.id.uiTextToken) TextView tvToken;
 
