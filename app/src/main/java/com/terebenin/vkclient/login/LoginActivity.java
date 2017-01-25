@@ -11,6 +11,7 @@ import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.news.NewsActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
+import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
@@ -26,6 +27,11 @@ public class LoginActivity extends Activity {
 
     @BindView(R.id.uiBtnSignIn) Button btnSignIn;
 
+    private static final String[] sMyScope = new String[]{
+            VKScope.FRIENDS,
+            VKScope.WALL,
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +39,7 @@ public class LoginActivity extends Activity {
         ButterKnife.bind(this);
 
         btnSignIn.setOnClickListener((View view) ->
-                VKSdk.login(this));
+                VKSdk.login(this, sMyScope));
 
         VKSdk.wakeUpSession(this, new VKCallback<VKSdk.LoginState>() {
             @Override
