@@ -31,14 +31,6 @@ public class LoginActivity extends Activity {
      *
      * @see <a href="https://vk.com/dev/permissions">vk.com api permissions documentation</a>
      */
-    private static final String[] sMyScope = new String[]{
-            VKScope.FRIENDS,
-            VKScope.WALL,
-            VKScope.PHOTOS,
-            VKScope.NOHTTPS,
-            VKScope.MESSAGES,
-            VKScope.DOCS
-    };
 
     @BindView(R.id.uiBtnSignIn) Button btnSignIn;
 
@@ -49,7 +41,7 @@ public class LoginActivity extends Activity {
         ButterKnife.bind(this);
 
         btnSignIn.setOnClickListener((View view) ->
-                VKSdk.login(this, sMyScope));
+                VKSdk.login(this));
 
         VKSdk.wakeUpSession(this, new VKCallback<VKSdk.LoginState>() {
             @Override
