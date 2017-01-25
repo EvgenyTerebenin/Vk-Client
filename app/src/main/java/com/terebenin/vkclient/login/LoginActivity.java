@@ -1,6 +1,7 @@
 package com.terebenin.vkclient.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -26,6 +27,7 @@ import butterknife.ButterKnife;
  */
 public class LoginActivity extends Activity {
 
+    static final String USER_TOKEN = "USER_TOKEN";
     private boolean isResumed = false;
 
     /**
@@ -50,9 +52,8 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.layout_login);
         ButterKnife.bind(this);
 
-        btnSignIn.setOnClickListener((View view) -> {
-            VKSdk.login(this, sMyScope);
-        });
+        btnSignIn.setOnClickListener((View view) ->
+                VKSdk.login(this, sMyScope));
 
         VKSdk.wakeUpSession(this, new VKCallback<VKSdk.LoginState>() {
             @Override
@@ -63,10 +64,11 @@ public class LoginActivity extends Activity {
                         break;
                     case LoggedIn:
                         Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle(R.string.alertDialogTitle)
-                                .setMessage(VKAccessToken.currentToken().accessToken)
-                                .show();
+
+//                        new AlertDialog.Builder(LoginActivity.this)
+//                                .setTitle(R.string.alertDialogTitle)
+//                                .setMessage(VKAccessToken.currentToken().accessToken)
+//                                .show();
                         break;
                     case Pending:
                         break;
@@ -77,12 +79,35 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onError(VKError error) {
-
+                //TODO
             }
         });
 
-
         String[] fingerprint = VKUtil.getCertificateFingerprint(this, this.getPackageName());
         Log.d("Fingerprint", fingerprint[0]);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        VKCallback<VKAccessToken> callback = new VKCallback<VKAccessToken>() {
+            @Override
+            public void onResult(VKAccessToken res) {
+                // User passed Authorization
+                Intent intent = new Intent(LoginActivity.this, LoggedInActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(USER_TOKEN, VKAccessToken.currentToken().accessToken);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(VKError error) {
+                // User didn't pass Authorization
+            }
+        };
+
+        if (!VKSdk.onActivityResult(requestCode, resultCode, data, callback)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
