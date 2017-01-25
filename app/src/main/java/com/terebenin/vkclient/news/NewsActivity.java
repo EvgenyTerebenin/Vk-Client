@@ -17,7 +17,7 @@ public class NewsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_news;
+        setContentView(R.layout.layout_news);
         ButterKnife.bind(this);
     }
 }
