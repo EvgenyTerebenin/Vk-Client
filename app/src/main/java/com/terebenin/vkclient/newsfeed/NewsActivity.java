@@ -1,4 +1,4 @@
-package com.terebenin.vkclient.news;
+package com.terebenin.vkclient.newsfeed;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

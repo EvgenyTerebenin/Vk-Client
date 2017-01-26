@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.terebenin.vkclient.R;
-import com.terebenin.vkclient.news.NewsActivity;
+import com.terebenin.vkclient.newsfeed.NewsActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;

@@ -1,7 +1,11 @@
 package com.terebenin.vkclient.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+
+import com.terebenin.vkclient.R;
 
 /**
  * Created by evgeny on 25.01.17.
@@ -10,6 +14,9 @@ import android.view.ViewGroup;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     @Override
     public NewsItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.id.ui, parent, false);
+        NewsItemHolder newsitemHolder = new NewsItemHolder(v);
+        return newsitemHolder;
         return null;
     }
 
