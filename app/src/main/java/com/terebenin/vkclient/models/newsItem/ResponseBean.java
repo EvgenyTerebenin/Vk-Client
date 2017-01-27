@@ -16,7 +16,7 @@ public class ResponseBean {
 
     private String next_from;
     private List<ItemsBean> items;
-    private List<?> profiles;
+    private List<ProfilesBean> profiles;
     private List<GroupsBean> groups;
 
     public String getNext_from() {
@@ -35,11 +35,11 @@ public class ResponseBean {
         this.items = items;
     }
 
-    public List<?> getProfiles() {
+    public List<ProfilesBean> getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(List<?> profiles) {
+    public void setProfiles(List<ProfilesBean> profiles) {
         this.profiles = profiles;
     }
 
