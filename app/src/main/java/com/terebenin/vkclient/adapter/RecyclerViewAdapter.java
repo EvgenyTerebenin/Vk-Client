@@ -45,13 +45,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     public void onBindViewHolder(NewsItemHolder holder, int position) {
 //        Resources res = mContext.getResources();
         if ((mResponseBean.getItems().get(position).getSource_id()) < 0) {
-            holder.tvPostOwner.setText((mResponseBean.getGroups().get(position).getName()));
-            holder.ivPostAvatar.setImageURI(Uri.parse(mResponseBean.getGroups().get(position).getPhoto_200()));
+            holder.tvPostOwner.setText((mGroupsBeanList.get(position).getName()));
+            holder.ivPostAvatar.setImageURI(Uri.parse(mGroupsBeanList.get(position).getPhoto_200()));
         } else {
-            holder.tvPostOwner.setText((mResponseBean.getProfiles().get(position).getFirst_name() + mResponseBean.getProfiles().get(position).getLast_name()));
-            holder.ivPostAvatar.setImageURI(Uri.parse(mResponseBean.getProfiles().get(position).getPhoto_100()));
+            holder.tvPostOwner.setText((mProfilesBeanList.get(position).getFirst_name() + mResponseBean.getProfiles().get(position).getLast_name()));
+            holder.ivPostAvatar.setImageURI(Uri.parse(mProfilesBeanList.get(position).getPhoto_100()));
         }
-        holder.tvPostText.setText(mResponseBean.getItems().get(position).getText());
+        holder.tvPostText.setText(mItemsBeanList.get(position).getText());
     }
 
     @Override
