@@ -13,6 +13,8 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.VKSdkVersion;
+import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKError;
 
 import butterknife.BindView;
@@ -50,6 +52,7 @@ public class LoginActivity extends Activity {
                         break;
                     case LoggedIn:
                         Toast.makeText(LoginActivity.this, R.string.logged_in, Toast.LENGTH_SHORT).show();
+
                         break;
                     case Pending:
                         break;

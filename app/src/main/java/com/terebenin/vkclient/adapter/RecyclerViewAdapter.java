@@ -22,16 +22,16 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     ResponseBean mResponseBean;
-    List<ItemsBean> mItemsBeanList;
-    List<ProfilesBean> mProfilesBeanList;
-    List<GroupsBean> mGroupsBeanList;
+//    List<ItemsBean> mItemsBeanList;
+//    List<ProfilesBean> mProfilesBeanList;
+//    List<GroupsBean> mGroupsBeanList;
     Context mContext;
 
-    public RecyclerViewAdapter(ResponseBean responseBean, List<ItemsBean> itemsBeanList, List<ProfilesBean> profilesBeanList, List<GroupsBean> groupsBeanList, Context context) {
+    public RecyclerViewAdapter(ResponseBean responseBean, Context context) {
         mResponseBean = responseBean;
-        mItemsBeanList = itemsBeanList;
-        mProfilesBeanList = profilesBeanList;
-        mGroupsBeanList = groupsBeanList;
+//        mItemsBeanList = itemsBeanList;
+//        mProfilesBeanList = profilesBeanList;
+//        mGroupsBeanList = groupsBeanList;
         mContext = context;
     }
 
@@ -43,19 +43,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
-//        Resources res = mContext.getResources();
         if ((mResponseBean.getItems().get(position).getSource_id()) < 0) {
-            holder.tvPostOwner.setText((mGroupsBeanList.get(position).getName()));
-            holder.ivPostAvatar.setImageURI(Uri.parse(mGroupsBeanList.get(position).getPhoto_200()));
+            holder.tvPostOwner.setText((mResponseBean.getGroups().get(position).getName()));
+            holder.ivPostAvatar.setImageURI(Uri.parse(mResponseBean.getGroups().get(position).getPhoto_200()));
         } else {
-            holder.tvPostOwner.setText((mProfilesBeanList.get(position).getFirst_name() + mResponseBean.getProfiles().get(position).getLast_name()));
-            holder.ivPostAvatar.setImageURI(Uri.parse(mProfilesBeanList.get(position).getPhoto_100()));
+            holder.tvPostOwner.setText((String.format("%s %s", mResponseBean.getProfiles().get(position).getFirst_name(), mResponseBean.getProfiles().get(position).getLast_name())));
+            holder.ivPostAvatar.setImageURI(Uri.parse(mResponseBean.getProfiles().get(position).getPhoto_100()));
         }
-        holder.tvPostText.setText(mItemsBeanList.get(position).getText());
+        holder.tvPostText.setText(mResponseBean.getItems().get(position).getText());
     }
 
     @Override
     public int getItemCount() {
-        return mItemsBeanList.size();
+        return mResponseBean.getItems().size();
     }
 }
