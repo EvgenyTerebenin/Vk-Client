@@ -9,6 +9,7 @@ import android.util.Log;
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.adapter.RecyclerViewAdapter;
 import com.terebenin.vkclient.models.newsItem.ResponseBean;
+import com.terebenin.vkclient.models.newsItem.ResponseHolder;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
 
@@ -27,18 +28,19 @@ import rx.schedulers.Schedulers;
 public class NewsActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "LOG_TAG";
+
     @BindView(R.id.uiRecyclerView) RecyclerView recyclerView;
     RecyclerViewAdapter rvAdapter;
     //    ProgressDialog progressDialog;
     private Subscription mItemsSubscription;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_news);
         ButterKnife.bind(this);
-
-
+        token = VKAccessToken.currentToken().accessToken;
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
@@ -48,15 +50,16 @@ public class NewsActivity extends AppCompatActivity {
 //        progressDialog.setMessage(getString(R.string.progDialMsg));
 //        progressDialog.setIndeterminate(true);
 
-        mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseBean(100, VKAccessToken.currentToken().accessToken)
+        mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder(100, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 //                .doOnSubscribe(progressDialog::show)
 //                .doAfterTerminate(progressDialog::dismiss)
-                .subscribe(new Subscriber<ResponseBean>() {
+                .subscribe(new Subscriber<ResponseHolder>() {
 
                     @Override
                     public void onCompleted() {
+
                     }
 
                     @Override
@@ -67,8 +70,8 @@ public class NewsActivity extends AppCompatActivity {
 
 
                     @Override
-                    public void onNext(ResponseBean responseBean) {
-                        rvAdapter = new RecyclerViewAdapter(responseBean, NewsActivity.this);
+                    public void onNext(ResponseHolder responseHolder) {
+                        rvAdapter = new RecyclerViewAdapter(responseHolder.getResponseBean(), NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
                     }
                 });

@@ -52,7 +52,6 @@ public class LoginActivity extends Activity {
                         break;
                     case LoggedIn:
                         Toast.makeText(LoginActivity.this, R.string.logged_in, Toast.LENGTH_SHORT).show();
-
                         break;
                     case Pending:
                         break;

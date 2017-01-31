@@ -1,8 +1,7 @@
 package com.terebenin.vkclient.rest;
 
-import com.vk.sdk.VKAccessToken;
-import com.vk.sdk.VKSdkVersion;
-
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,11 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitSingleton {
-//
-//    public static final String METHOD_NAME = "newsfeed.get";
-//    public static final String ACCESS_TOKEN = VKAccessToken.currentToken().accessToken;
-//    public static final String PARAMETERS = "count=100";
-//    public static final double V = 5.62;
 
     public static final String BASE_URL = "https://api.vk.com/method/";
 
@@ -27,11 +21,20 @@ public class RetrofitSingleton {
         static volatile RetrofitSingleton INSTANCE = new RetrofitSingleton();
     }
 
+
     public RetrofitSingleton() {
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(httpClient.build())
                 .build();
         request = retrofit.create(RequestInterface.class);
     }
