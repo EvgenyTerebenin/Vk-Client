@@ -56,19 +56,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         return result;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
         if ((mResponseBean.getItems().get(position).getSource_id()) < 0) {
-            holder.tvPostOwner.setText((fromHtml(mResponseBean.getGroups().get(position).getName())));
-            Picasso.with(mContext).load(mResponseBean.getGroups().get(position).getPhoto_200()).into(holder.ivPostAvatar);
+            holder.tvPostOwner.setText(fromHtml(mResponseBean.getGroups().get(position).getName()));
+            Picasso.with(mContext).load(mResponseBean.getGroups().get(position
+            ).getPhoto_50()).into(holder.ivPostAvatar);
         } else {
             holder.tvPostOwner.setText(fromHtml(String.format("%s %s", mResponseBean.getProfiles().get(position).getFirst_name(),
                     mResponseBean.getProfiles().get(position).getLast_name())));
-            Picasso.with(mContext).load(mResponseBean.getProfiles().get(position).getPhoto_50()).into(holder.ivPostAvatar);
+//            Picasso.with(mContext).load(mResponseBean.getProfiles().get(position).getPhoto_50()).into(holder.ivPostAvatar);
         }
 
-        holder.tvPostText.setText(mResponseBean.getItems().get(position).getText());
+        if(mResponseBean.getItems().get(position).getText() != null) {
+        holder.tvPostText.setText(fromHtml(mResponseBean.getItems().get(position).getText()));
+        } else {
+            holder.tvPostText.setText(R.string.text_null);
+        }
     }
 
     @Override

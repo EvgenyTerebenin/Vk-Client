@@ -7,4 +7,5 @@
     <string name="logged_in">Logged in</string>
     <string name="progDialTitle">Please, wait</string>
     <string name="progDialMsg">Newsfeed loading...</string>
+    <string name="text_null">Text field is empty</string>
 </resources>
