@@ -51,7 +51,7 @@ public class NewsActivity extends AppCompatActivity {
         progressDialog.setMessage(getString(R.string.progDialMsg));
         progressDialog.setIndeterminate(true);
 
-        mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder(100, token)
+        mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder(100, token, 5.62)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(progressDialog::show)

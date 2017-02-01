@@ -23,9 +23,10 @@
 
             <ImageView
                 android:id="@+id/uiImagePostAvatar"
-                android:layout_width="50px"
-                android:layout_height="50px"
-            android:src="@drawable/vk_dog"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:src="@drawable/vk_dog"/>
 
             <TextView
                 android:id="@+id/uiTextPostOwner"
