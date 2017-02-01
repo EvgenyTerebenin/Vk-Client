@@ -5,4 +5,6 @@
     <string name="user_token">User token:</string>
     <string name="logged_out">Logged out</string>
     <string name="logged_in">Logged in</string>
+    <string name="progDialTitle">Please, wait</string>
+    <string name="progDialMsg">Newsfeed loading...</string>
 </resources>

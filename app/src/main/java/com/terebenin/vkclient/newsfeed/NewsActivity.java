@@ -1,5 +1,6 @@
 package com.terebenin.vkclient.newsfeed;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,7 +32,7 @@ public class NewsActivity extends AppCompatActivity {
 
     @BindView(R.id.uiRecyclerView) RecyclerView recyclerView;
     RecyclerViewAdapter rvAdapter;
-    //    ProgressDialog progressDialog;
+        ProgressDialog progressDialog;
     private Subscription mItemsSubscription;
     String token;
 
@@ -44,17 +45,17 @@ public class NewsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
-//
-//        progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-//        progressDialog.setTitle(getString(R.string.progDialTitle));
-//        progressDialog.setMessage(getString(R.string.progDialMsg));
-//        progressDialog.setIndeterminate(true);
+
+        progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
+        progressDialog.setTitle(getString(R.string.progDialTitle));
+        progressDialog.setMessage(getString(R.string.progDialMsg));
+        progressDialog.setIndeterminate(true);
 
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder(100, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-//                .doOnSubscribe(progressDialog::show)
-//                .doAfterTerminate(progressDialog::dismiss)
+                .doOnSubscribe(progressDialog::show)
+                .doAfterTerminate(progressDialog::dismiss)
                 .subscribe(new Subscriber<ResponseHolder>() {
 
                     @Override
