@@ -27,6 +27,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     Context mContext;
     List<ItemsBean> items;
 
+    int currentPosition;
+
+    String itemText;
+    int itemSourceId;
+
+    int groupId;
+    String groupName;
+    String groupPhoto100;
+
+    String profileFirstName;
+    String profileLastName;
+
+
     public RecyclerViewAdapter(ResponseBean responseBean, Context context) {
         mResponseBean = responseBean;
         mContext = context;
@@ -53,17 +66,42 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
-        if ((mResponseBean.getItems().get(position).getSource_id()) < 0) {
-            holder.tvPostOwner.setText(fromHtml(mResponseBean.getGroups().get(position).getName()));
-            Picasso.with(mContext).load(mResponseBean.getGroups().get(position).getPhoto_100()).into(holder.ivPostAvatar);
+
+        currentPosition = position;
+        itemSourceId = mResponseBean.getItems().get(position).getSource_id();
+        itemText = mResponseBean.getItems().get(position).getText();
+        groupId = mResponseBean.getGroups().get(position).getId();
+        groupName = mResponseBean.getGroups().get(position).getName();
+        groupPhoto100 = mResponseBean.getGroups().get(position).getPhoto_100();
+        profileFirstName = mResponseBean.getProfiles().get(position).getFirst_name();
+        profileLastName = mResponseBean.getProfiles().get(position).getLast_name();
+
+        if ((itemSourceId) < 0) {
+            holder.tvPostOwner.setText(fromHtml(groupName));
+
+//            *********************************************
+            if (itemSourceId * (-1) == groupId) {
+                Picasso.with(mContext).load(groupPhoto100).into(holder.ivPostAvatar);
+            } else {
+
+                for (int i = 0; i < 100; i++) {
+                    if (itemSourceId == groupId) {
+                        position = currentPosition;
+                        Picasso.with(mContext).load(groupPhoto100).into(holder.ivPostAvatar);
+                    }
+                }
+
+            }
+//            *********************************************
+
         } else {
-            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", mResponseBean.getProfiles().get(position).getFirst_name(),
-                    mResponseBean.getProfiles().get(position).getLast_name())));
-            Picasso.with(mContext).load(mResponseBean.getProfiles().get(position).getPhoto_100()).into(holder.ivPostAvatar);
+            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profileFirstName,
+                    profileLastName)));
+//            Picasso.with(mContext).load(mResponseBean.getProfiles().get(position).getPhoto_100()).into(holder.ivPostAvatar);
         }
 
-        if (mResponseBean.getItems().get(position).getText() != null) {
-            holder.tvPostText.setText(fromHtml(mResponseBean.getItems().get(position).getText()));
+        if (itemText != null) {
+            holder.tvPostText.setText(fromHtml(itemText));
         } else {
             holder.tvPostText.setText(R.string.text_null);
         }
