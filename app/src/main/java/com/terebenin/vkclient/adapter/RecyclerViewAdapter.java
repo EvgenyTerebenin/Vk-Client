@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
+import com.terebenin.vkclient.models.newsItem.GroupsBean;
 import com.terebenin.vkclient.models.newsItem.ItemsBean;
+import com.terebenin.vkclient.models.newsItem.ProfilesBean;
 import com.terebenin.vkclient.models.newsItem.ResponseBean;
 
 import java.util.List;
@@ -22,28 +24,22 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
-    private static final String LOG_SIZE = "LOG_SIZE";
-    ResponseBean mResponseBean;
+    private static final String GROUP_ID = "GROUP_ID";
     Context mContext;
-    List<ItemsBean> items;
-
-    int currentPosition;
-
-    String itemText;
     int itemSourceId;
+    String itemText;
 
-    int groupId;
-    String groupName;
-    String groupPhoto100;
-
-    String profileFirstName;
-    String profileLastName;
+    List<ItemsBean> itemsList;
+    List<GroupsBean> groupsList;
+    List<ProfilesBean> profilesList;
 
 
     public RecyclerViewAdapter(ResponseBean responseBean, Context context) {
-        mResponseBean = responseBean;
+
+        itemsList = responseBean.getItems();
+        groupsList = responseBean.getGroups();
+        profilesList = responseBean.getProfiles();
         mContext = context;
-        items = mResponseBean.getItems();
     }
 
     @Override
@@ -63,41 +59,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         return result;
     }
 
+    private ProfilesBean getProfileById(int itemSourceId, List<ProfilesBean> profilesList) {
+        for (int i = 0; i < profilesList.size(); i++) {
+            if (itemSourceId == profilesList.get(i).getId()) return profilesList.get(i);
+        }
+        return null;
+    }
+
+    private GroupsBean getGroupById(int itemSourceId, List<GroupsBean> groupsList) {
+        for (int i = 0; i < groupsList.size(); i++) {
+            if (Math.abs(itemSourceId) == groupsList.get(i).getId()) return groupsList.get(i);
+        }
+        return null;
+    }
 
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
 
-        currentPosition = position;
-        itemSourceId = mResponseBean.getItems().get(position).getSource_id();
-        itemText = mResponseBean.getItems().get(position).getText();
-        groupId = mResponseBean.getGroups().get(position).getId();
-        groupName = mResponseBean.getGroups().get(position).getName();
-        groupPhoto100 = mResponseBean.getGroups().get(position).getPhoto_100();
-        profileFirstName = mResponseBean.getProfiles().get(position).getFirst_name();
-        profileLastName = mResponseBean.getProfiles().get(position).getLast_name();
+        itemSourceId = itemsList.get(position).getSource_id();
+        itemText = itemsList.get(position).getText();
 
-        if ((itemSourceId) < 0) {
-            holder.tvPostOwner.setText(fromHtml(groupName));
-
-//            *********************************************
-            if (itemSourceId * (-1) == groupId) {
-                Picasso.with(mContext).load(groupPhoto100).into(holder.ivPostAvatar);
-            } else {
-
-                for (int i = 0; i < 100; i++) {
-                    if (itemSourceId == groupId) {
-                        position = currentPosition;
-                        Picasso.with(mContext).load(groupPhoto100).into(holder.ivPostAvatar);
-                    }
-                }
-
-            }
-//            *********************************************
-
+        if (itemSourceId < 0) {
+            GroupsBean group = getGroupById(itemSourceId, groupsList);
+            holder.tvPostOwner.setText(fromHtml(group.getName()));
+            Picasso.with(mContext).load(group.getPhoto_100()).into(holder.ivPostAvatar);
         } else {
-            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profileFirstName,
-                    profileLastName)));
-//            Picasso.with(mContext).load(mResponseBean.getProfiles().get(position).getPhoto_100()).into(holder.ivPostAvatar);
+            ProfilesBean profile = getProfileById(itemSourceId, profilesList);
+            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirst_name(), profile.getLast_name())));
+            Picasso.with(mContext).load(profile.getPhoto_100()).into(holder.ivPostAvatar);
         }
 
         if (itemText != null) {
@@ -109,7 +98,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     @Override
     public int getItemCount() {
-        Log.d(LOG_SIZE, String.valueOf(items.size()));
-        return mResponseBean.getItems().size();
+        return itemsList.size();
     }
 }

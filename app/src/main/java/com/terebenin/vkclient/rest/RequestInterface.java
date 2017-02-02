@@ -12,6 +12,6 @@ import retrofit2.http.Query;
 public interface RequestInterface {
 
     @GET("newsfeed.get")
-    rx.Observable<ResponseHolder> getResponseHolder(@Query("count") int count, @Query("access_token") String token, @Query("v") double version);
+    rx.Observable<ResponseHolder> getResponseHolder(@Query("filters") String filters, @Query("count") int count, @Query("access_token") String token, @Query("v") double version);
 
 }
