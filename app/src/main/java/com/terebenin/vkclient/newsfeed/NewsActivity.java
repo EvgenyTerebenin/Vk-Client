@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.adapter.RecyclerViewAdapter;
-import com.terebenin.vkclient.models.newsItem.ResponseBean;
 import com.terebenin.vkclient.models.newsItem.ResponseHolder;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
@@ -32,7 +31,7 @@ public class NewsActivity extends AppCompatActivity {
 
     @BindView(R.id.uiRecyclerView) RecyclerView recyclerView;
     RecyclerViewAdapter rvAdapter;
-        ProgressDialog progressDialog;
+    ProgressDialog progressDialog;
     private Subscription mItemsSubscription;
     String token;
 

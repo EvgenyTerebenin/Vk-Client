@@ -1,6 +1,5 @@
 package com.terebenin.vkclient.rest;
 
-import com.terebenin.vkclient.models.newsItem.ResponseBean;
 import com.terebenin.vkclient.models.newsItem.ResponseHolder;
 
 import retrofit2.http.GET;

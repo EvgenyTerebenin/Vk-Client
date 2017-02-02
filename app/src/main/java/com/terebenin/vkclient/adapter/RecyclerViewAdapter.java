@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
-    private static final String GROUP_ID = "GROUP_ID";
     Context mContext;
     int itemSourceId;
     String itemText;

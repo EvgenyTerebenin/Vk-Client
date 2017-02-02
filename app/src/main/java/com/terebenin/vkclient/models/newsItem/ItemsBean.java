@@ -29,11 +29,7 @@ public class ItemsBean {
     private String post_type;
     private String text;
     private int marked_as_ads;
-    private PostSourceBean post_source;
-    private CommentsBean comments;
-    private LikesBean likes;
-    private RepostsBean reposts;
-    private List<AttachmentsBean> attachments;
+
 
     public String getType() {
         return type;
@@ -91,43 +87,4 @@ public class ItemsBean {
         this.marked_as_ads = marked_as_ads;
     }
 
-    public PostSourceBean getPost_source() {
-        return post_source;
-    }
-
-    public void setPost_source(PostSourceBean post_source) {
-        this.post_source = post_source;
-    }
-
-    public CommentsBean getComments() {
-        return comments;
-    }
-
-    public void setComments(CommentsBean comments) {
-        this.comments = comments;
-    }
-
-    public LikesBean getLikes() {
-        return likes;
-    }
-
-    public void setLikes(LikesBean likes) {
-        this.likes = likes;
-    }
-
-    public RepostsBean getReposts() {
-        return reposts;
-    }
-
-    public void setReposts(RepostsBean reposts) {
-        this.reposts = reposts;
-    }
-
-    public List<AttachmentsBean> getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(List<AttachmentsBean> attachments) {
-        this.attachments = attachments;
-    }
 }
