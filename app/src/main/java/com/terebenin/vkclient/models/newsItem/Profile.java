@@ -3,7 +3,7 @@ package com.terebenin.vkclient.models.newsItem;
 /**
  * Created by evgeny on 27.01.17.
  */
-public class Profiles {
+public class Profile {
 
     private int id;
     private String first_name;

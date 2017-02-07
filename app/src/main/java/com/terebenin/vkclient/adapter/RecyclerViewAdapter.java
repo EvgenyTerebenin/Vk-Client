@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
-import com.terebenin.vkclient.models.newsItem.Groups;
-import com.terebenin.vkclient.models.newsItem.Items;
-import com.terebenin.vkclient.models.newsItem.Profiles;
+import com.terebenin.vkclient.models.newsItem.Group;
+import com.terebenin.vkclient.models.newsItem.Item;
+import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
 
 import java.util.List;
@@ -27,16 +27,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     int itemSourceId;
     String itemText;
 
-    List<Items> itemsList;
-    List<Groups> groupsList;
-    List<Profiles> profilesList;
+    List<Item> mItemList;
+    List<Group> mGroupList;
+    List<Profile> mProfileList;
 
 
     public RecyclerViewAdapter(Response response, Context context) {
 
-        itemsList = response.getItems();
-        groupsList = response.getGroups();
-        profilesList = response.getProfiles();
+        mItemList = response.getItemList();
+        mGroupList = response.getGroupList();
+        mProfileList = response.getProfileList();
         mContext = context;
     }
 
@@ -57,16 +57,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         return result;
     }
 
-    private Profiles getProfileById(int itemSourceId, List<Profiles> profilesList) {
-        for (int i = 0; i < profilesList.size(); i++) {
-            if (itemSourceId == profilesList.get(i).getId()) return profilesList.get(i);
+    private Profile getProfileById(int itemSourceId, List<Profile> profileList) {
+        for (int i = 0; i < profileList.size(); i++) {
+            if (itemSourceId == profileList.get(i).getId()) return profileList.get(i);
         }
         return null;
     }
 
-    private Groups getGroupById(int itemSourceId, List<Groups> groupsList) {
-        for (int i = 0; i < groupsList.size(); i++) {
-            if (Math.abs(itemSourceId) == groupsList.get(i).getId()) return groupsList.get(i);
+    private Group getGroupById(int itemSourceId, List<Group> groupList) {
+        for (int i = 0; i < groupList.size(); i++) {
+            if (Math.abs(itemSourceId) == groupList.get(i).getId()) return groupList.get(i);
         }
         return null;
     }
@@ -74,15 +74,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
 
-        itemSourceId = itemsList.get(position).getSource_id();
-        itemText = itemsList.get(position).getText();
+        itemSourceId = mItemList.get(position).getSource_id();
+        itemText = mItemList.get(position).getText();
 
         if (itemSourceId < 0) {
-            Groups group = getGroupById(itemSourceId, groupsList);
+            Group group = getGroupById(itemSourceId, mGroupList);
             holder.tvPostOwner.setText(fromHtml(group.getName()));
             Picasso.with(mContext).load(group.getPhoto_100()).into(holder.ivPostAvatar);
         } else {
-            Profiles profile = getProfileById(itemSourceId, profilesList);
+            Profile profile = getProfileById(itemSourceId, mProfileList);
             holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirst_name(), profile.getLast_name())));
             Picasso.with(mContext).load(profile.getPhoto_100()).into(holder.ivPostAvatar);
         }
@@ -96,6 +96,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     @Override
     public int getItemCount() {
-        return itemsList.size();
+        return mItemList.size();
     }
 }

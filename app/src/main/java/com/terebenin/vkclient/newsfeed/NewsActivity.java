@@ -65,7 +65,6 @@ public class NewsActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.e(LOG_TAG, e.getMessage());
-//                        showDialog();
                     }
 
 

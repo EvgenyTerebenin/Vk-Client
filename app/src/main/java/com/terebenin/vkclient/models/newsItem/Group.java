@@ -4,7 +4,7 @@ package com.terebenin.vkclient.models.newsItem;
  * Created by evgeny on 26.01.17.
  */
 
-public class Groups {
+public class Group {
     /**
      * id : 65
      * name : Enter Казань

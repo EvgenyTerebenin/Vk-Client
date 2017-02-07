@@ -6,7 +6,7 @@ import java.util.List;
  * Created by evgeny on 26.01.17.
  */
 
-public class Items {
+public class Item {
     /**
      * type : post
      * source_id : -65
