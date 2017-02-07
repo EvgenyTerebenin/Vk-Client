@@ -8,10 +8,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.terebenin.vkclient.R;
+import com.terebenin.vkclient.newsfeed.NewsActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.VKSdkVersion;
+import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKError;
 
 import butterknife.BindView;
@@ -24,15 +27,12 @@ import butterknife.ButterKnife;
  */
 public class LoginActivity extends Activity {
 
-    static final String USER_TOKEN = "USER_TOKEN";
-
-    /**
-     * Scope is set of required permissions for your application
-     *
-     * @see <a href="https://vk.com/dev/permissions">vk.com api permissions documentation</a>
-     */
-
     @BindView(R.id.uiBtnSignIn) Button btnSignIn;
+
+    private static final String[] sMyScope = new String[]{
+            VKScope.FRIENDS,
+            VKScope.WALL
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class LoginActivity extends Activity {
         ButterKnife.bind(this);
 
         btnSignIn.setOnClickListener((View view) ->
-                VKSdk.login(this));
+                VKSdk.login(this, sMyScope));
 
         VKSdk.wakeUpSession(this, new VKCallback<VKSdk.LoginState>() {
             @Override
@@ -71,10 +71,7 @@ public class LoginActivity extends Activity {
         VKCallback<VKAccessToken> callback = new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                Intent intent = new Intent(LoginActivity.this, LoggedInActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(USER_TOKEN, VKAccessToken.currentToken().accessToken);
-                intent.putExtras(bundle);
+                Intent intent = new Intent(LoginActivity.this, NewsActivity.class);
                 startActivity(intent);
             }
 
