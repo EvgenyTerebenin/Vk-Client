@@ -34,9 +34,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     public RecyclerViewAdapter(Response response, Context context) {
 
-        mItemList = response.getItemList();
-        mGroupList = response.getGroupList();
-        mProfileList = response.getProfileList();
+        mItemList = response.getItems();
+        mGroupList = response.getGroups();
+        mProfileList = response.getProfiles();
         mContext = context;
     }
 
