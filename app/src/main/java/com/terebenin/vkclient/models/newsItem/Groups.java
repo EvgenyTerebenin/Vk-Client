@@ -4,7 +4,7 @@ package com.terebenin.vkclient.models.newsItem;
  * Created by evgeny on 26.01.17.
  */
 
-public class GroupsBean {
+public class Groups {
     /**
      * id : 65
      * name : Enter Казань

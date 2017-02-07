@@ -8,9 +8,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseHolder {
     @SerializedName("response")
-    ResponseBean responseBean;
+    Response mResponse;
 
-    public ResponseBean getResponseBean() {
-        return responseBean;
+    public Response getResponse() {
+        return mResponse;
     }
 }

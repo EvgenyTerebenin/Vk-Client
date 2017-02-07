@@ -71,7 +71,7 @@ public class NewsActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ResponseHolder responseHolder) {
-                        rvAdapter = new RecyclerViewAdapter(responseHolder.getResponseBean(), NewsActivity.this);
+                        rvAdapter = new RecyclerViewAdapter(responseHolder.getResponse(), NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
                     }
                 });
