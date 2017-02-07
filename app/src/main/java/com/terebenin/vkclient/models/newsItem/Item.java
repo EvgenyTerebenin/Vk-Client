@@ -15,7 +15,7 @@ public class Item {
      * post_type : post
      * text : За наводку можно получить деньги!
      * marked_as_ads : 0
-     * attachments : [{"type":"link","link":{"url":"http://enter.kazanfirst.ru/?p=12772","title":"Цифра дня: сколько литров суррогата обнаружено в Татарстане в прошлом году","caption":"enter.kazanfirst.ru","description":"За наводку жители республики могут получить деньги. В 2016 году в Татарстане было изъято около 450 литров нелегального алкоголя. Об этом сообщила Госалкогольинспекция РТ на совещании по итогам года. Общая сумма штрафов составила около 30 миллионов рублей. К ответственности привлечены более 2 тысяч татарстанцев. За информацию о продаже сомнительной алкопродукции ведомство предлагает вознаграждение:","photo":{"id":456239182,"album_id":-2,"owner_id":14748097,"photo_75":"https://cs540106....4c5/V7INUJNMk6c.jpg","photo_130":"https://cs540106....4c6/LDoZCGoB9F4.jpg","photo_604":"https://cs540106....4c7/pcLVE1cYZQw.jpg","width":150,"height":87,"text":"","date":1485433267}}}]
+     * mAttachmentsList : [{"type":"link","link":{"url":"http://enter.kazanfirst.ru/?p=12772","title":"Цифра дня: сколько литров суррогата обнаружено в Татарстане в прошлом году","caption":"enter.kazanfirst.ru","description":"За наводку жители республики могут получить деньги. В 2016 году в Татарстане было изъято около 450 литров нелегального алкоголя. Об этом сообщила Госалкогольинспекция РТ на совещании по итогам года. Общая сумма штрафов составила около 30 миллионов рублей. К ответственности привлечены более 2 тысяч татарстанцев. За информацию о продаже сомнительной алкопродукции ведомство предлагает вознаграждение:","photo":{"id":456239182,"album_id":-2,"owner_id":14748097,"photo_75":"https://cs540106....4c5/V7INUJNMk6c.jpg","photo_130":"https://cs540106....4c6/LDoZCGoB9F4.jpg","photo_604":"https://cs540106....4c7/pcLVE1cYZQw.jpg","width":150,"height":87,"text":"","date":1485433267}}}]
      * post_source : {"type":"vk"}
      * comments : {"count":0,"can_post":1}
      * likes : {"count":0,"user_likes":0,"can_like":1,"can_publish":1}
@@ -29,6 +29,16 @@ public class Item {
     private String post_type;
     private String text;
     private int marked_as_ads;
+
+    public List<Attachments> getAttachmentsList() {
+        return mAttachmentsList;
+    }
+
+    public void setAttachmentsList(List<Attachments> attachmentsList) {
+        mAttachmentsList = attachmentsList;
+    }
+
+    private List<Attachments> mAttachmentsList;
 
 
     public String getType() {
