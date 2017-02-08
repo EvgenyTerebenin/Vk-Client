@@ -44,11 +44,12 @@
             android:id="@+id/uiGridViewPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnWidth="150px"
+            android:columnWidth="90dp"
             android:gravity="center"
-            android:horizontalSpacing="4dp"
-            android:numColumns="5"
-            android:verticalSpacing="4dp">
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp">
 
         </GridView>
     </LinearLayout>

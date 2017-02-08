@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
@@ -114,6 +116,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         } else {
             holder.tvPostText.setText(R.string.text_null);
         }
+
+        holder.gvPhoto.setAdapter(new ImageAdapter(mContext));
+        holder.gvPhoto.setOnItemClickListener((parent, v, position1, id) -> Toast.makeText(mContext, "" + position1,
+                Toast.LENGTH_SHORT).show());
     }
 
     @Override
