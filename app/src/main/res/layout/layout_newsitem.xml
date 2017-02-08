@@ -39,15 +39,18 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:maxLength="150"/>
-         <GridLayout android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-         android:rowCount="5">
 
-             <ImageView android:layout_width="150dp"
-             android:layout_height="150dp"
-             android:src="@drawable/vk_dog"/>
+        <GridView
+            android:id="@+id/uiGridViewPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="150px"
+            android:gravity="center"
+            android:horizontalSpacing="4dp"
+            android:numColumns="5"
+            android:verticalSpacing="4dp">
 
-         </GridLayout>
+        </GridView>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

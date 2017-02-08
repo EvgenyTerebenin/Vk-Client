@@ -4,6 +4,7 @@ import android.media.Image;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ public class NewsItemHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.uiImagePostAvatar) ImageView ivPostAvatar;
     @BindView(R.id.uiTextPostOwner) TextView tvPostOwner;
     @BindView(R.id.uiTextPostText) TextView tvPostText;
-
+    @BindView(R.id.uiGridViewPhoto) GridView gvPhoto;
     public NewsItemHolder(View newsItemView) {
         super(newsItemView);
         ButterKnife.bind(this, newsItemView);
