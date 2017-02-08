@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -30,6 +29,7 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     private static final String LOG_ATTACH = "LOG_ATTACH";
+    private static final String LOG_PHOTOSLIST = "LOG_PHOTOSLIST";
     Context mContext;
     int itemSourceId;
     String itemText;
@@ -37,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     List<Item> mItemList;
     List<Group> mGroupList;
     List<Profile> mProfileList;
-    List<Attachment> mAttachmentList;
+
 
 
     public RecyclerViewAdapter(Response response, Context context) {
@@ -79,26 +79,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         return null;
     }
 
-    private Photo getPhotoFromAttachments(int position, List<Attachment> attachmentList) {
+    private List<Photo> getPhotoFromAttachments(List<Attachment> attachmentList) {
         List<Photo> photosList = new ArrayList<>();
 
-        for (int i=0; i<mAttachmentList.size(); i++) {
-        if(mAttachmentList.get(i).getType() =="photo") {
-            photosList.add(mAttachmentList.get(i).getLink().getPhoto());
-        }}
-        return null;
+        for (int i = 0; i < attachmentList.size(); i++) {
+            if (attachmentList.get(i).getType().equals("photo")) {
+                photosList.add(attachmentList.get(i).getPhoto());
+                Log.d(LOG_PHOTOSLIST, String.valueOf(photosList.size()));
+
+
+            }
+
+        }
+        return photosList;
+
     }
 
 
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
 
-        mAttachmentList = mItemList.get(position).getAttachments();
+        List<Attachment> attachmentList = mItemList.get(position).getAttachments();
         itemSourceId = mItemList.get(position).getSource_id();
         itemText = mItemList.get(position).getText();
         Log.d(LOG_ATTACH, String.valueOf(mItemList.get(position).getAttachments()));
-        if (mAttachmentList != null) {
-            getPhotoFromAttachments(position, mAttachmentList);
+        if (attachmentList != null) {
+            getPhotoFromAttachments(attachmentList);
+
         }
 
         if (itemSourceId < 0) {

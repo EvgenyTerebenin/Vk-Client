@@ -11,7 +11,7 @@ public class Attachment {
      */
 
     private String type;
-    private Link link;
+    private Photo photo;
 
     public String getType() {
         return type;
@@ -21,11 +21,11 @@ public class Attachment {
         this.type = type;
     }
 
-    public Link getLink() {
-        return link;
+    public Photo getPhoto() {
+        return photo;
     }
 
-    public void setLink(Link link) {
-        this.link = link;
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 }
