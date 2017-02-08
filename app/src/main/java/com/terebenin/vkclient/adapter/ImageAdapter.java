@@ -7,7 +7,10 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.terebenin.vkclient.R;
+import com.squareup.picasso.Picasso;
+import com.terebenin.vkclient.models.newsItem.Photo;
+
+import java.util.List;
 
 /**
  * Created by evgeny on 08.02.17.
@@ -15,14 +18,16 @@ import com.terebenin.vkclient.R;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
+    List<Photo> photosList;
 
-    public ImageAdapter(Context c) {
+    public ImageAdapter(Context c, List<Photo> photosList) {
         mContext = c;
+        this.photosList = photosList;
     }
 
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return photosList.size();
     }
 
     @Override
@@ -42,29 +47,15 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(150, 150));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
         } else {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[position]);
+        Picasso.with(mContext).load(photosList.get(position).getPhoto_130()).into(imageView);
         return imageView;
     }
 
-    //references to our images
-    private Integer[] mThumbIds ={
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7,
-            R.drawable.sample_0, R.drawable.sample_1,
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7,
-            R.drawable.sample_0, R.drawable.sample_1,
-            R.drawable.sample_2, R.drawable.sample_3,
-            R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7
-    };
 }
