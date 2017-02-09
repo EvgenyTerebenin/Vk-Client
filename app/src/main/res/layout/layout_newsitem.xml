@@ -3,7 +3,7 @@
                                     xmlns:cardview="http://schemas.android.com/tools"
                                     android:id="@+id/uiCardView"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:layout_marginLeft="8dp"
                                     android:layout_marginRight="8dp"
                                     android:layout_marginTop="8dp"
@@ -44,12 +44,12 @@
             android:id="@+id/uiGridViewPhoto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnWidth="170dp"
+            android:columnWidth="100dp"
             android:gravity="center"
             android:horizontalSpacing="10dp"
             android:numColumns="5"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp">
+            android:verticalSpacing="5dp">
 
         </GridView>
     </LinearLayout>

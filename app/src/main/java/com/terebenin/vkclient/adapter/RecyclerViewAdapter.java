@@ -101,10 +101,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         itemSourceId = mItemList.get(position).getSource_id();
         itemText = mItemList.get(position).getText();
         Log.d(LOG_ATTACH, "Item " + position + ": " + String.valueOf(mItemList.get(position).getAttachments()));
-        if ((attachmentList != null) & for (int i = 0; i < attachmentList.size(); i++) {
-            attachmentList.get(i).getType().equals("photo");
-        }
-        return;
+        if (attachmentList != null)
 
         {
 
