@@ -15,6 +15,7 @@ import com.terebenin.vkclient.models.newsItem.ResponseHolder;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -79,23 +80,23 @@ public class NewsActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ResponseHolder responseHolder) {
-                        getItemListOnlyWIthPhoto(responseHolder.getResponse());
-                        rvAdapter = new RecyclerViewAdapter(responseHolder.getResponse(), NewsActivity.this);
+//                        getSortResponseOnlyWIthPhoto(responseHolder.getResponse());
+                        rvAdapter = new RecyclerViewAdapter(getSortResponseOnlyWIthPhoto(responseHolder.getResponse()), NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
                     }
                 });
     }
 
-    public Response getItemListOnlyWIthPhoto(Response response) {
+    public Response getSortResponseOnlyWIthPhoto(Response response) {
         itemList = response.getItems();
-
+        itemListOnlyWithPhoto = new ArrayList<>();
         for (int i = 0; i < itemList.size(); i++) {
             if (itemList.get(i).getAttachments() != null) {
                 for (int j = 0; j < itemList.get(i).getAttachments().size(); j++) {
                     if (itemList.get(i).getAttachments().get(j).getType().equals("photo")) {
                         itemListOnlyWithPhoto.add(itemList.get(i));
+                        break;
                     }
-
                 }
             }
         }
