@@ -33,6 +33,7 @@ import rx.schedulers.Schedulers;
 public class NewsActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "LOG_TAG";
+    static final String TYPE_PHOTO = "photo";
 
     @BindView(R.id.uiRecyclerView) RecyclerView recyclerView;
     RecyclerViewAdapter rvAdapter;
@@ -80,7 +81,6 @@ public class NewsActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ResponseHolder responseHolder) {
-//                        getSortResponseOnlyWIthPhoto(responseHolder.getResponse());
                         rvAdapter = new RecyclerViewAdapter(getSortResponseOnlyWIthPhoto(responseHolder.getResponse()), NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
                     }
@@ -93,7 +93,7 @@ public class NewsActivity extends AppCompatActivity {
         for (int i = 0; i < itemList.size(); i++) {
             if (itemList.get(i).getAttachments() != null) {
                 for (int j = 0; j < itemList.get(i).getAttachments().size(); j++) {
-                    if (itemList.get(i).getAttachments().get(j).getType().equals("photo")) {
+                    if (itemList.get(i).getAttachments().get(j).getType().equals(TYPE_PHOTO)) {
                         itemListOnlyWithPhoto.add(itemList.get(i));
                         break;
                     }

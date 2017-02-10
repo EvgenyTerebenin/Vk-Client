@@ -13,8 +13,6 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
-import com.vk.sdk.VKSdkVersion;
-import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKError;
 
 import butterknife.BindView;

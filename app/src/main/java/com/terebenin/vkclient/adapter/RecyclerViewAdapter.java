@@ -22,6 +22,9 @@ import com.terebenin.vkclient.models.newsItem.Response;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.vk.sdk.api.model.VKAttachments.TYPE_PHOTO;
+
+
 /**
  * Created by evgeny on 25.01.17.
  */
@@ -84,7 +87,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         photosList = new ArrayList<>();
 
         for (int i = 0; i < attachmentList.size(); i++) {
-            if (attachmentList.get(i).getType().equals("photo")) {
+            if (attachmentList.get(i).getType().equals(TYPE_PHOTO)) {
                 photosList.add(attachmentList.get(i).getPhoto());
             }
 
