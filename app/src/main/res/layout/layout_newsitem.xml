@@ -44,9 +44,8 @@
             android:id="@+id/uiGridViewPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnWidth="100dp"
             android:gravity="center"
-            android:horizontalSpacing="10dp"
+            android:horizontalSpacing="5dp"
             android:numColumns="5"
             android:stretchMode="columnWidth"
             android:verticalSpacing="5dp">

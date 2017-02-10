@@ -41,9 +41,6 @@ public class NewsActivity extends AppCompatActivity {
     private Subscription mItemsSubscription;
     String token;
 
-    List<Item> itemList;
-    List<Item> itemListOnlyWithPhoto;
-
 
     @Override
 
@@ -88,8 +85,8 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     public Response getSortResponseOnlyWIthPhoto(Response response) {
-        itemList = response.getItems();
-        itemListOnlyWithPhoto = new ArrayList<>();
+        List<Item> itemList = response.getItems();
+        List<Item> itemListOnlyWithPhoto = new ArrayList<>();
         for (int i = 0; i < itemList.size(); i++) {
             if (itemList.get(i).getAttachments() != null) {
                 for (int j = 0; j < itemList.get(i).getAttachments().size(); j++) {
