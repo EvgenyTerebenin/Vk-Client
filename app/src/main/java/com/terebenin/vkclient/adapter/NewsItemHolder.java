@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import com.terebenin.vkclient.R;
+import com.terebenin.vkclient.newsfeed.MyGridView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ public class NewsItemHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.uiImagePostAvatar) ImageView ivPostAvatar;
     @BindView(R.id.uiTextPostOwner) TextView tvPostOwner;
     @BindView(R.id.uiTextPostText) TextView tvPostText;
-    @BindView(R.id.uiGridViewPhoto) GridView gvPhoto;
+    @BindView(R.id.uiGridViewPhoto) MyGridView gvPhoto;
     public NewsItemHolder(View newsItemView) {
         super(newsItemView);
         ButterKnife.bind(this, newsItemView);

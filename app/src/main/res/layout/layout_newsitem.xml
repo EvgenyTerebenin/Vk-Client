@@ -3,7 +3,7 @@
                                     xmlns:cardview="http://schemas.android.com/tools"
                                     android:id="@+id/uiCardView"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginLeft="8dp"
                                     android:layout_marginRight="8dp"
                                     android:layout_marginTop="8dp"
@@ -40,10 +40,10 @@
                   android:layout_height="wrap_content"
                   android:maxLength="150"/>
 
-        <GridView
+        <com.terebenin.vkclient.newsfeed.MyGridView
             android:id="@+id/uiGridViewPhoto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:columnWidth="100dp"
             android:gravity="center"
             android:horizontalSpacing="10dp"
@@ -51,7 +51,7 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="5dp">
 
-        </GridView>
+        </com.terebenin.vkclient.newsfeed.MyGridView>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
