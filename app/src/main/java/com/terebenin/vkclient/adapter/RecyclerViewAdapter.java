@@ -38,6 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     List<Group> mGroupList;
     List<Profile> mProfileList;
     List<Photo> photosList;
+    List<Item> itemListOnlyWIthPhoto;
 
 
     public RecyclerViewAdapter(Response response, Context context) {
@@ -79,7 +80,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         return null;
     }
 
-    private List<Photo> getPhotoFromAttachments(List<Attachment> attachmentList) {
+    List<Photo> getPhotoFromAttachments(List<Attachment> attachmentList) {
         photosList = new ArrayList<>();
 
         for (int i = 0; i < attachmentList.size(); i++) {
@@ -101,32 +102,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         itemSourceId = mItemList.get(position).getSource_id();
         itemText = mItemList.get(position).getText();
         Log.d(LOG_ATTACH, "Item " + position + ": " + String.valueOf(mItemList.get(position).getAttachments()));
-        if (attachmentList != null)
 
-        {
 
-            holder.gvPhoto.setAdapter(new ImageAdapter(mContext, getPhotoFromAttachments(attachmentList)));
-            holder.gvPhoto.setOnItemClickListener((parent, v, position1, id) -> Toast.makeText(mContext, "" + position1,
-                    Toast.LENGTH_SHORT).show());
+        holder.gvPhoto.setAdapter(new ImageAdapter(mContext, getPhotoFromAttachments(attachmentList)));
+        holder.gvPhoto.setOnItemClickListener((parent, v, position1, id) -> Toast.makeText(mContext, "" + position1,
+                Toast.LENGTH_SHORT).show());
 
-            if (itemSourceId < 0) {
-                Group group = getGroupById(itemSourceId, mGroupList);
-                holder.tvPostOwner.setText(fromHtml(group.getName()));
-                Picasso.with(mContext).load(group.getPhoto_100()).into(holder.ivPostAvatar);
-            } else {
-                Profile profile = getProfileById(itemSourceId, mProfileList);
-                holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirst_name(), profile.getLast_name())));
-                Picasso.with(mContext).load(profile.getPhoto_100()).into(holder.ivPostAvatar);
-            }
 
-            if (itemText != null) {
-                holder.tvPostText.setText(fromHtml(itemText));
-            } else {
-                holder.tvPostText.setText(R.string.text_null);
-            }
+        if (itemSourceId < 0) {
+            Group group = getGroupById(itemSourceId, mGroupList);
+            holder.tvPostOwner.setText(fromHtml(group.getName()));
+            Picasso.with(mContext).load(group.getPhoto_100()).into(holder.ivPostAvatar);
+        } else {
+            Profile profile = getProfileById(itemSourceId, mProfileList);
+            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirst_name(), profile.getLast_name())));
+            Picasso.with(mContext).load(profile.getPhoto_100()).into(holder.ivPostAvatar);
         }
 
+        if (itemText != null) {
+            holder.tvPostText.setText(fromHtml(itemText));
+        } else {
+            holder.tvPostText.setText(R.string.text_null);
+        }
     }
+
 
     @Override
     public int getItemCount() {

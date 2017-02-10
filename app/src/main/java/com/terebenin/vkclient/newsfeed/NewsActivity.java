@@ -9,9 +9,13 @@ import android.util.Log;
 
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.adapter.RecyclerViewAdapter;
+import com.terebenin.vkclient.models.newsItem.Item;
+import com.terebenin.vkclient.models.newsItem.Response;
 import com.terebenin.vkclient.models.newsItem.ResponseHolder;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +39,12 @@ public class NewsActivity extends AppCompatActivity {
     private Subscription mItemsSubscription;
     String token;
 
+    List<Item> itemList;
+    List<Item> itemListOnlyWithPhoto;
+
+
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_news);
@@ -70,11 +79,30 @@ public class NewsActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ResponseHolder responseHolder) {
+                        getItemListOnlyWIthPhoto(responseHolder.getResponse());
                         rvAdapter = new RecyclerViewAdapter(responseHolder.getResponse(), NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
                     }
                 });
     }
+
+    public Response getItemListOnlyWIthPhoto(Response response) {
+        itemList = response.getItems();
+
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getAttachments() != null) {
+                for (int j = 0; j < itemList.get(i).getAttachments().size(); j++) {
+                    if (itemList.get(i).getAttachments().get(j).getType().equals("photo")) {
+                        itemListOnlyWithPhoto.add(itemList.get(i));
+                    }
+
+                }
+            }
+        }
+        response.setItems(itemListOnlyWithPhoto);
+        return response;
+    }
+
 
     @Override
     protected void onStop() {
