@@ -19,7 +19,7 @@ import java.util.List;
 public class ImageAdapter extends BaseAdapter {
     Context mContext;
     List<Photo> photosList;
-    private static final float GESTURE_THRESHOLD_DP = 150.0f;
+    private static final float GESTURE_THRESHOLD_DP = 75.0f;
 
     public ImageAdapter(Context c, List<Photo> photosList) {
         mContext = c;

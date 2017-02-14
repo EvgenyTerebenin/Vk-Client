@@ -39,12 +39,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     List<Item> itemList;
     List<Group> groupList;
     List<Profile> profileList;
-    List<Photo> photoList;
 
 
     public RecyclerViewAdapter(Response response, Context context) {
 
-        List<Item> itemList = response.getItems();
+        itemList = response.getItems();
         groupList = response.getGroups();
         profileList = response.getProfiles();
         mContext = context;
@@ -82,7 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     }
 
     List<Photo> getPhotoFromAttachments(List<Attachment> attachmentList) {
-        photoList = new ArrayList<>();
+        List<Photo> photoList = new ArrayList<>();
 
         for (int i = 0; i < attachmentList.size(); i++) {
             if (attachmentList.get(i).getType().equals(TYPE_PHOTO)) {
@@ -98,7 +97,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
-
         List<Attachment> attachmentList = itemList.get(position).getAttachments();
         itemSourceId = itemList.get(position).getSource_id();
         itemText = itemList.get(position).getText();
