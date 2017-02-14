@@ -1,7 +1,6 @@
 package com.terebenin.vkclient.adapter;
 
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -42,17 +41,15 @@ public class ImageAdapter extends BaseAdapter {
         return photosList.get(position).getId();
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the screen's density scale
         final float scale = mContext.getResources().getDisplayMetrics().density;
-// Convert the dps to pixels, based on density scale
+        // Convert the dps to pixels, based on density scale
         int mGestureThreshold = (int) (GESTURE_THRESHOLD_DP * scale + 0.5f);
 
         ImageView imageView;
         if (convertView == null) {
-            // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mGestureThreshold));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

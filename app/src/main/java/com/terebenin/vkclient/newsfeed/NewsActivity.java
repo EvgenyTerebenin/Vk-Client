@@ -11,7 +11,6 @@ import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.adapter.RecyclerViewAdapter;
 import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Response;
-import com.terebenin.vkclient.models.newsItem.ResponseHolder;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
 
@@ -40,7 +39,6 @@ public class NewsActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private Subscription mItemsSubscription;
     String token;
-    Response mResponse;
 
 
     @Override
