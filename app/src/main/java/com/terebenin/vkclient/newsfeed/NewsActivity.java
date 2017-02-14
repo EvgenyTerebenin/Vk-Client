@@ -40,6 +40,7 @@ public class NewsActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private Subscription mItemsSubscription;
     String token;
+    Response mResponse;
 
 
     @Override
@@ -59,11 +60,12 @@ public class NewsActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
 
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
+                .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(progressDialog::show)
                 .doAfterTerminate(progressDialog::dismiss)
-                .subscribe(new Subscriber<ResponseHolder>() {
+                .subscribe(new Subscriber<Response>() {
 
                     @Override
                     public void onCompleted() {
@@ -77,8 +79,8 @@ public class NewsActivity extends AppCompatActivity {
 
 
                     @Override
-                    public void onNext(ResponseHolder responseHolder) {
-                        rvAdapter = new RecyclerViewAdapter(getSortResponseOnlyWIthPhoto(responseHolder.getResponse()), NewsActivity.this);
+                    public void onNext(Response response) {
+                        rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
                     }
                 });
