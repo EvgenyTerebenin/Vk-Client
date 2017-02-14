@@ -32,12 +32,12 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return photosList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return photosList.get(position).getId();
     }
 
     // create a new ImageView for each item referenced by the Adapter
