@@ -29,7 +29,16 @@ public class Item {
     private String post_type;
     private String text;
     private int marked_as_ads;
+    private List<Attachment> attachments;
 
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
 
     public String getType() {
         return type;

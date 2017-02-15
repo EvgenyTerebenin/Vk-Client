@@ -2,11 +2,11 @@
 <resources>
 
     <style name="VK.Transparent" parent="android:Theme.Material.Light">
-        <itemList name="android:windowIsTranslucent">true</itemList>
-        <itemList name="android:windowBackground">@android:color/transparent</itemList>
-        <itemList name="android:windowContentOverlay">@null</itemList>
-        <itemList name="android:windowNoTitle">true</itemList>
-        <itemList name="android:windowIsFloating">true</itemList>
-        <itemList name="android:windowTranslucentStatus">true</itemList>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>

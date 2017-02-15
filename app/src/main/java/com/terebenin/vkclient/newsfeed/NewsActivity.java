@@ -9,9 +9,13 @@ import android.util.Log;
 
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.adapter.RecyclerViewAdapter;
-import com.terebenin.vkclient.models.newsItem.ResponseHolder;
+import com.terebenin.vkclient.models.newsItem.Item;
+import com.terebenin.vkclient.models.newsItem.Response;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +32,7 @@ import rx.schedulers.Schedulers;
 public class NewsActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "LOG_TAG";
+    static final String TYPE_PHOTO = "photo";
 
     @BindView(R.id.uiRecyclerView) RecyclerView recyclerView;
     RecyclerViewAdapter rvAdapter;
@@ -35,7 +40,9 @@ public class NewsActivity extends AppCompatActivity {
     private Subscription mItemsSubscription;
     String token;
 
+
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_news);
@@ -51,11 +58,12 @@ public class NewsActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
 
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
+                .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(progressDialog::show)
                 .doAfterTerminate(progressDialog::dismiss)
-                .subscribe(new Subscriber<ResponseHolder>() {
+                .subscribe(new Subscriber<Response>() {
 
                     @Override
                     public void onCompleted() {
@@ -69,12 +77,30 @@ public class NewsActivity extends AppCompatActivity {
 
 
                     @Override
-                    public void onNext(ResponseHolder responseHolder) {
-                        rvAdapter = new RecyclerViewAdapter(responseHolder.getResponse(), NewsActivity.this);
+                    public void onNext(Response response) {
+                        rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
                     }
                 });
     }
+
+    public Response getSortResponseOnlyWIthPhoto(Response response) {
+        List<Item> itemList = response.getItems();
+        List<Item> itemListOnlyWithPhoto = new ArrayList<>();
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).getAttachments() != null) {
+                for (int j = 0; j < itemList.get(i).getAttachments().size(); j++) {
+                    if (itemList.get(i).getAttachments().get(j).getType().equals(TYPE_PHOTO)) {
+                        itemListOnlyWithPhoto.add(itemList.get(i));
+                        break;
+                    }
+                }
+            }
+        }
+        response.setItems(itemListOnlyWithPhoto);
+        return response;
+    }
+
 
     @Override
     protected void onStop() {
