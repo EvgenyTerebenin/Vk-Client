@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
@@ -20,7 +19,7 @@ import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Photo;
 import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
-import com.terebenin.vkclient.newsfeed.PhotoItemActivity;
+import com.terebenin.vkclient.viewpager.PhotoListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +109,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
         holder.gvPhoto.setAdapter(new ImageAdapter(mContext, getPhotoFromAttachments(attachmentList)));
         holder.gvPhoto.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(mContext.getApplicationContext(), PhotoItemActivity.class);
+            Intent intent = new Intent(mContext.getApplicationContext(), PhotoListActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(EXTRA_PHOTO_ITEM_URL, attachmentList.get(i).getPhoto().getPhoto_604());
             intent.putExtras(bundle);
