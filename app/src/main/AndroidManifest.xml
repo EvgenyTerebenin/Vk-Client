@@ -20,6 +20,8 @@
         <activity android:name=".newsfeed.NewsActivity"
                   android:label="News">
         </activity>
+        <activity android:name=".newsfeed.PhotoItemActivity"
+                  android:label="Photo item"/>
     </application>
 
 </manifest>

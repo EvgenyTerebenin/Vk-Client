@@ -2,6 +2,7 @@ package com.terebenin.vkclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
@@ -10,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
@@ -20,7 +20,6 @@ import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Photo;
 import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
-import com.terebenin.vkclient.newsfeed.NewsActivity;
 import com.terebenin.vkclient.newsfeed.PhotoItemActivity;
 
 import java.util.ArrayList;
@@ -37,6 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     private static final String LOG_ATTACH = "LOG_ATTACH";
     private static final String LOG_PHOTOLIST = "LOG_PHOTOLIST";
+    static final String EXTRA_PHOTO_ITEM_URL = "EXTRA_PHOTO_ITEM_URL";
     Context mContext;
     int itemSourceId;
     String itemText;
@@ -109,11 +109,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
 
         holder.gvPhoto.setAdapter(new ImageAdapter(mContext, getPhotoFromAttachments(attachmentList)));
-        holder.gvPhoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
-            }
+        holder.gvPhoto.setOnItemClickListener((adapterView, view, i, l) -> {
+            Intent intent = new Intent(mContext.getApplicationContext(), PhotoItemActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(EXTRA_PHOTO_ITEM_URL, attachmentList.get(i).getPhoto().getPhoto_604());
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
         });
 
         if (itemSourceId < 0) {
