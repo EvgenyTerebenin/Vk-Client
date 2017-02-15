@@ -1,6 +1,7 @@
 package com.terebenin.vkclient.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
@@ -17,6 +20,8 @@ import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Photo;
 import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
+import com.terebenin.vkclient.newsfeed.NewsActivity;
+import com.terebenin.vkclient.newsfeed.PhotoItemActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +109,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
 
         holder.gvPhoto.setAdapter(new ImageAdapter(mContext, getPhotoFromAttachments(attachmentList)));
+        holder.gvPhoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if (itemSourceId < 0) {
             Group group = getGroupById(itemSourceId, groupList);
