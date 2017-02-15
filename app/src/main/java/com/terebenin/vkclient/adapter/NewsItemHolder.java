@@ -23,6 +23,7 @@ public class NewsItemHolder extends RecyclerView.ViewHolder {
         super(newsItemView);
         ButterKnife.bind(this, newsItemView);
 
+
     }
 
 }
