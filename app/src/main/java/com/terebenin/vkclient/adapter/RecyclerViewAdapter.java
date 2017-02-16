@@ -35,8 +35,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     private static final String LOG_ATTACH = "LOG_ATTACH";
     private static final String LOG_PHOTOLIST = "LOG_PHOTOLIST";
-    static final String EXTRA_PHOTOLIST = "EXTRA_PHOTOLIST";
-    static final String EXTRA_POSITION = "EXTRA_POSITION";
+    public static final String EXTRA_PHOTOLIST = "EXTRA_PHOTOLIST";
+    public static final String EXTRA_POSITION = "EXTRA_POSITION";
     Context mContext;
     int itemSourceId;
     String itemText;

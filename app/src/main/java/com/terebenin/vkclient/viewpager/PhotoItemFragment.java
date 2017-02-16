@@ -17,10 +17,8 @@ import butterknife.BindView;
 
 import static com.terebenin.vkclient.adapter.RecyclerViewAdapter.EXTRA_PHOTOLIST;
 import static com.terebenin.vkclient.adapter.RecyclerViewAdapter.EXTRA_POSITION;
-import static com.vk.sdk.VKUIHelper.getApplicationContext;
 
 public class PhotoItemFragment extends Fragment {
-
     @BindView(R.id.uiImageViewPhotoItem) ImageView ivPhotoItem;
 
     ArrayList<Photo> photos;
@@ -48,29 +46,10 @@ public class PhotoItemFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Picasso.with(getActivity()).load(photos.get(position).getPhoto_604()).into(ivPhotoItem);
-//
-//        Picasso.with(getActivity()).load(R.drawable.background2).into(new Target(){
-//
-//            @Override
-//            public void onBitmapLoaded(Bitmap bitmap, LoadedFrom from) {
-//                mainLayout.setBackground(new BitmapDrawable(context.getResources(), bitmap));
-//            }
-//
-//            @Override
-//            public void onBitmapFailed(final Drawable errorDrawable) {
-//                Log.d("TAG", "FAILED");
-//            }
-//
-//            @Override
-//            public void onPrepareLoad(final Drawable placeHolderDrawable) {
-//                Log.d("TAG", "Prepare Load");
-//            }
-//        });
-//
-
         View view = inflater.inflate(R.layout.fragment_photo_item, null);
 
 
         return view;
     }
 }
+
