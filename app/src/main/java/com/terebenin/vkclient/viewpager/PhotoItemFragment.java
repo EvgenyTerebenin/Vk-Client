@@ -1,109 +1,76 @@
 package com.terebenin.vkclient.viewpager;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
+import com.terebenin.vkclient.models.newsItem.Photo;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PhotoItemFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PhotoItemFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import butterknife.BindView;
+
+import static com.terebenin.vkclient.adapter.RecyclerViewAdapter.EXTRA_PHOTOLIST;
+import static com.terebenin.vkclient.adapter.RecyclerViewAdapter.EXTRA_POSITION;
+import static com.vk.sdk.VKUIHelper.getApplicationContext;
+
 public class PhotoItemFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @BindView(R.id.uiImageViewPhotoItem) ImageView ivPhotoItem;
 
-    private OnFragmentInteractionListener mListener;
+    ArrayList<Photo> photos;
+    int position;
 
-    public PhotoItemFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PhotoItemFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PhotoItemFragment newInstance(String param1, String param2) {
-        PhotoItemFragment fragment = new PhotoItemFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    static PhotoItemFragment newInstance(int position) {
+        ArrayList<Photo> photolist = null;
+        PhotoItemFragment photoItemFragment = new PhotoItemFragment();
+        Bundle arguments = new Bundle();
+        arguments.putInt(EXTRA_POSITION, position);
+        arguments.putParcelableArrayList(EXTRA_PHOTOLIST, photolist);
+        photoItemFragment.setArguments(arguments);
+        return photoItemFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        photos = getArguments().getParcelableArrayList(EXTRA_PHOTOLIST);
+        position = getArguments().getInt(EXTRA_POSITION);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_photo_item, container, false);
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+        Picasso.with(getActivity()).load(photos.get(position).getPhoto_604()).into(ivPhotoItem);
+//
+//        Picasso.with(getActivity()).load(R.drawable.background2).into(new Target(){
+//
+//            @Override
+//            public void onBitmapLoaded(Bitmap bitmap, LoadedFrom from) {
+//                mainLayout.setBackground(new BitmapDrawable(context.getResources(), bitmap));
+//            }
+//
+//            @Override
+//            public void onBitmapFailed(final Drawable errorDrawable) {
+//                Log.d("TAG", "FAILED");
+//            }
+//
+//            @Override
+//            public void onPrepareLoad(final Drawable placeHolderDrawable) {
+//                Log.d("TAG", "Prepare Load");
+//            }
+//        });
+//
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+        View view = inflater.inflate(R.layout.fragment_photo_item, null);
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        return view;
     }
 }

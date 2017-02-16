@@ -19,8 +19,10 @@ import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Photo;
 import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
+import com.terebenin.vkclient.viewpager.PhotoItemFragment;
 import com.terebenin.vkclient.viewpager.PhotoListActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     private static final String LOG_ATTACH = "LOG_ATTACH";
     private static final String LOG_PHOTOLIST = "LOG_PHOTOLIST";
-    static final String EXTRA_PHOTO_ITEM_URL = "EXTRA_PHOTO_ITEM_URL";
+    public static final String EXTRA_PHOTOLIST = "EXTRA_PHOTOLIST";
+    public static final String EXTRA_POSITION = "EXTRA_POSITION";
     Context mContext;
     int itemSourceId;
     String itemText;
@@ -84,8 +87,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         return null;
     }
 
-    List<Photo> getPhotoFromAttachments(List<Attachment> attachmentList) {
-        List<Photo> photoList = new ArrayList<>();
+    ArrayList<Photo> getPhotoFromAttachments(List<Attachment> attachmentList) {
+        ArrayList<Photo> photoList = new ArrayList<>();
 
         for (int i = 0; i < attachmentList.size(); i++) {
             if (attachmentList.get(i).getType().equals(TYPE_PHOTO)) {
@@ -111,7 +114,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         holder.gvPhoto.setOnItemClickListener((adapterView, view, i, l) -> {
             Intent intent = new Intent(mContext.getApplicationContext(), PhotoListActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(EXTRA_PHOTO_ITEM_URL, attachmentList.get(i).getPhoto().getPhoto_604());
+            bundle.putParcelableArrayList(EXTRA_PHOTOLIST, getPhotoFromAttachments(attachmentList));
+            bundle.putInt(EXTRA_POSITION, i);
             intent.putExtras(bundle);
             mContext.startActivity(intent);
         });

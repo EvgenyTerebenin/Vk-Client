@@ -20,6 +20,8 @@
         <activity android:name=".newsfeed.NewsActivity"
                   android:label="News">
         </activity>
+        <activity android:name=".viewpager.PhotoListActivity"
+                  android:label="Photo gallery"/>
     </application>
 
 </manifest>
