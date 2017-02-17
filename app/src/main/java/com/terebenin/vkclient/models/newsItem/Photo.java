@@ -1,10 +1,13 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by evgeny on 07.02.17.
  */
 
-public class Photo {
+public class Photo implements Parcelable {
     private int id;
     private int album_id;
     private int owner_id;
@@ -125,4 +128,51 @@ public class Photo {
         this.date = date;
 
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeInt(this.album_id);
+        dest.writeInt(this.owner_id);
+        dest.writeString(this.photo_75);
+        dest.writeString(this.photo_130);
+        dest.writeString(this.photo_604);
+        dest.writeInt(this.width);
+        dest.writeInt(this.height);
+        dest.writeString(this.text);
+        dest.writeInt(this.date);
+    }
+
+    public Photo() {
+    }
+
+    protected Photo(Parcel in) {
+        this.id = in.readInt();
+        this.album_id = in.readInt();
+        this.owner_id = in.readInt();
+        this.photo_75 = in.readString();
+        this.photo_130 = in.readString();
+        this.photo_604 = in.readString();
+        this.width = in.readInt();
+        this.height = in.readInt();
+        this.text = in.readString();
+        this.date = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
+        @Override
+        public Photo createFromParcel(Parcel source) {
+            return new Photo(source);
+        }
+
+        @Override
+        public Photo[] newArray(int size) {
+            return new Photo[size];
+        }
+    };
 }

@@ -8,4 +8,8 @@
     <string name="progDialTitle">Please, wait</string>
     <string name="progDialMsg">Newsfeed loading...</string>
     <string name="text_null">Text field is empty</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="page_title">"Photo "</string>
 </resources>
