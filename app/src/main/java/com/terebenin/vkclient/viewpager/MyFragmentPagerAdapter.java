@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.ArrayList;
+import com.terebenin.vkclient.models.newsItem.Photo;
 
-import static com.terebenin.vkclient.adapter.RecyclerViewAdapter.EXTRA_PHOTOLIST;
+import java.util.ArrayList;
 
 /**
  * Created by evgeny on 16.02.17.
@@ -14,19 +14,22 @@ import static com.terebenin.vkclient.adapter.RecyclerViewAdapter.EXTRA_PHOTOLIST
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    public MyFragmentPagerAdapter(FragmentManager fm) {
+    private ArrayList<Photo> photos;
+
+    public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Photo> photos) {
         super(fm);
+        this.photos = photos;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return PhotoItemFragment.newInstance(position);
+        return PhotoItemFragment.newInstance(photos.get(position).getPhoto_604());
     }
 
 
     @Override
     public int getCount() {
-        return 0;
+        return photos.size();
     }
 
     @Override

@@ -41,7 +41,7 @@ public class PhotoListActivity extends FragmentActivity {
         photos = bundle.getParcelableArrayList(EXTRA_PHOTOLIST);
         Log.d(TAG_SIZE, String.valueOf(photos.size()));
         position = bundle.getInt(EXTRA_POSITION);
-        pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), photos);
         viewPager.setAdapter(pagerAdapter);
 
 
