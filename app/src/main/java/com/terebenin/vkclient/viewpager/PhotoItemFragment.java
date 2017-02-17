@@ -10,13 +10,14 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PhotoItemFragment extends Fragment {
 
-    //    @BindView(R.id.uiImageViewPhotoItem) ImageView ivPhotoItem;
-    ImageView ivPhotoItem;
+    @BindView(R.id.uiImageViewPhotoItem) ImageView ivPhotoItem;
     private String photoUrl;
     static final String EXTRA_PHOTOURL = "EXTRA_PHOTOURL";
-
 
     static PhotoItemFragment newInstance(String photoUrl) {
         PhotoItemFragment photoItemFragment = new PhotoItemFragment();
@@ -36,9 +37,8 @@ public class PhotoItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        ButterKnife.bind();
         View view = inflater.inflate(R.layout.fragment_photo_item, container, false);
-        ivPhotoItem = (ImageView) view.findViewById(R.id.uiImageViewPhotoItem);
+        ButterKnife.bind(this, view);
         Picasso.with(getActivity()).load(photoUrl).into(ivPhotoItem);
 
         return view;
