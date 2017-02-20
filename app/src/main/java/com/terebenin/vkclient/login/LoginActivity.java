@@ -2,6 +2,7 @@ package com.terebenin.vkclient.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,14 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        boolean restoredText = prefs.getBoolean("loginStatus", false);
+        if (restoredText == true) {
+            Toast.makeText(LoginActivity.this, R.string.logged_in, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, NewsActivity.class);
+            startActivity(intent);
+            finish();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_login);
         ButterKnife.bind(this);
@@ -66,9 +75,13 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        VKCallback<VKAccessToken> callback = new VKCallback<VKAccessToken>() {
+        if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
+                Toast.makeText(LoginActivity.this, R.string.logged_in, Toast.LENGTH_SHORT).show();
+                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                editor.putBoolean("loginStatus", true);
+                editor.commit();
                 Intent intent = new Intent(LoginActivity.this, NewsActivity.class);
                 startActivity(intent);
             }
@@ -76,10 +89,10 @@ public class LoginActivity extends Activity {
             @Override
             public void onError(VKError error) {
             }
-        };
-
-        if (!VKSdk.onActivityResult(requestCode, resultCode, data, callback)) {
+        })) {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }
+
+
