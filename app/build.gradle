@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -31,10 +32,6 @@ dependencies {
     })
     compile project(':vksdk_library')
 
-
-
-
-
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
@@ -47,6 +44,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:support-v4:25.1.0'
+    compile 'org.greenrobot:greendao:3.2.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }
