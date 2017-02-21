@@ -1,18 +1,44 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * Created by evgeny on 27.01.17.
  */
-public class Profile {
 
+@Entity
+public class Profile {
+    @Property
     private int id;
+    @Property
     private String first_name;
+    @Property
     private String last_name;
     private int sex;
     private String screen_name;
     private String photo_50;
+    @Property
     private String photo_100;
     private int online;
+
+    @Generated(hash = 1597521389)
+    public Profile(int id, String first_name, String last_name, int sex,
+            String screen_name, String photo_50, String photo_100, int online) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.sex = sex;
+        this.screen_name = screen_name;
+        this.photo_50 = photo_50;
+        this.photo_100 = photo_100;
+        this.online = online;
+    }
+
+    @Generated(hash = 782787822)
+    public Profile() {
+    }
 
     public int getId() {
         return id;

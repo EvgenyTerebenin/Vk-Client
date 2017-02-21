@@ -1,6 +1,7 @@
 package com.terebenin.vkclient.models.newsItem;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 
 import java.util.List;
@@ -9,7 +10,6 @@ import java.util.List;
  * Created by evgeny on 26.01.17.
  */
 
-@Entity
 public class Item {
     /**
      * type : post
@@ -28,19 +28,17 @@ public class Item {
 
     private String type;
 
-    @Property(nameInDb = "SOURCE_ID")
     private int source_id;
 
     private int date;
     private int post_id;
     private String post_type;
 
-    @Property
+
     private String text;
 
     private int marked_as_ads;
 
-    @Property
     private List<Attachment> attachments;
 
 
