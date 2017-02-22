@@ -1,8 +1,5 @@
 package com.terebenin.vkclient.models.newsItem;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Property;
-
 import java.util.List;
 
 /**
