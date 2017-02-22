@@ -1,5 +1,7 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import android.app.ProgressDialog;
+
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.SerializedName;
@@ -22,6 +24,10 @@ public class Profile {
     @Column(name = "Photo_100")
     private String photo_100;
     private int online;
+
+    public Profile() {
+        super();
+    }
 
     public int getProfile_id() {
         return profile_id;

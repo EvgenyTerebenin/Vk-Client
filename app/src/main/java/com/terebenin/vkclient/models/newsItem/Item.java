@@ -34,9 +34,11 @@ public class Item {
     @Column(name = "Text")
     private String text;
     private int marked_as_ads;
-
     private List<Attachment> attachments;
 
+    public Item() {
+        super();
+    }
 
     public List<Attachment> getAttachments() {
         return attachments;

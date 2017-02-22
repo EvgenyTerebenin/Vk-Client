@@ -37,6 +37,10 @@ public class Group {
     private String photo_100;
     private String photo_200;
 
+    public Group() {
+        super();
+    }
+
     public int getGroup_id() {
         return group_id;
     }
