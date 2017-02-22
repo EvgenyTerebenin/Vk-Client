@@ -1,13 +1,9 @@
 package com.terebenin.vkclient.models.newsItem;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.Generated;
-
 /**
  * Created by evgeny on 26.01.17.
  */
-@Entity
+
 public class Group {
     /**
      * id : 65
@@ -21,42 +17,17 @@ public class Group {
      * photo_100 : https://pp.vk.me/...19f/uerDsQqqKR8.jpg
      * photo_200 : https://pp.vk.me/...19d/ZhT4cvPw5J8.jpg
      */
-    @Property
-    private int id;
-    @Property
-    private String name;
 
+    private int id;
+    private String name;
     private String screen_name;
     private int is_closed;
     private String type;
     private int is_admin;
     private int is_member;
     private String photo_50;
-
-    @Property
     private String photo_100;
-
     private String photo_200;
-
-    @Generated(hash = 561662982)
-    public Group(int id, String name, String screen_name, int is_closed,
-            String type, int is_admin, int is_member, String photo_50,
-            String photo_100, String photo_200) {
-        this.id = id;
-        this.name = name;
-        this.screen_name = screen_name;
-        this.is_closed = is_closed;
-        this.type = type;
-        this.is_admin = is_admin;
-        this.is_member = is_member;
-        this.photo_50 = photo_50;
-        this.photo_100 = photo_100;
-        this.photo_200 = photo_200;
-    }
-
-    @Generated(hash = 117982048)
-    public Group() {
-    }
 
     public int getId() {
         return id;

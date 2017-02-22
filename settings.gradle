@@ -1,1 +1,1 @@
-include ':vksdk_library', ':app', ':greendao'
+include ':vksdk_library', ':app'
