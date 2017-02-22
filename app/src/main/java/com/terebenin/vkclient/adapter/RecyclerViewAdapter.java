@@ -73,14 +73,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     private Profile getProfileById(int itemSourceId, List<Profile> profileList) {
         for (int i = 0; i < profileList.size(); i++) {
-            if (itemSourceId == profileList.get(i).getId()) return profileList.get(i);
+            if (itemSourceId == profileList.get(i).getProfile_id()) return profileList.get(i);
         }
         return null;
     }
 
     private Group getGroupById(int itemSourceId, List<Group> groupList) {
         for (int i = 0; i < groupList.size(); i++) {
-            if (Math.abs(itemSourceId) == groupList.get(i).getId()) return groupList.get(i);
+            if (Math.abs(itemSourceId) == groupList.get(i).getGroup_id()) return groupList.get(i);
         }
         return null;
     }

@@ -1,11 +1,14 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.util.List;
 
 /**
  * Created by evgeny on 26.01.17.
  */
-
+@Table(name = "Items")
 public class Item {
     /**
      * type : post
@@ -23,15 +26,13 @@ public class Item {
      */
 
     private String type;
-
+    @Column(name = "Source_id")
     private int source_id;
-
     private int date;
     private int post_id;
     private String post_type;
-
+    @Column(name = "Text")
     private String text;
-
     private int marked_as_ads;
 
     private List<Attachment> attachments;

@@ -1,9 +1,13 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by evgeny on 26.01.17.
  */
-
+@Table(name = "Groups")
 public class Group {
     /**
      * id : 65
@@ -18,7 +22,10 @@ public class Group {
      * photo_200 : https://pp.vk.me/...19d/ZhT4cvPw5J8.jpg
      */
 
-    private int id;
+    @Column(name = "Group_id")
+    @SerializedName("id")
+    private int group_id;
+    @Column(name = "Name")
     private String name;
     private String screen_name;
     private int is_closed;
@@ -26,15 +33,16 @@ public class Group {
     private int is_admin;
     private int is_member;
     private String photo_50;
+    @Column(name = "Photo_100")
     private String photo_100;
     private String photo_200;
 
-    public int getId() {
-        return id;
+    public int getGroup_id() {
+        return group_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGroup_Id(int id) {
+        this.group_id = group_id;
     }
 
     public String getName() {
