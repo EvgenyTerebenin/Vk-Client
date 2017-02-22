@@ -2,6 +2,7 @@ package com.terebenin.vkclient.models.newsItem;
 
 import android.app.ProgressDialog;
 
+import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.SerializedName;
@@ -10,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by evgeny on 27.01.17.
  */
 @Table(name = "Profiles")
-public class Profile {
+public class Profile extends Model {
     @Column(name = "Profile_id")
     @SerializedName("id")
     private int profile_id;

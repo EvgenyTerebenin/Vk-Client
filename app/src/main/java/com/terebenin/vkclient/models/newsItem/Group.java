@@ -1,5 +1,6 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by evgeny on 26.01.17.
  */
 @Table(name = "Groups")
-public class Group {
+public class Group extends Model{
     /**
      * id : 65
      * name : Enter Казань

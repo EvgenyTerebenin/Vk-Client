@@ -1,7 +1,6 @@
 package com.terebenin.vkclient;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 
 import com.activeandroid.ActiveAndroid;
 import com.terebenin.vkclient.login.LoginActivity;
@@ -28,6 +27,5 @@ public class Application extends android.app.Application {
         vkAccessTokenTracker.startTracking();
         VKSdk.initialize(this);
         ActiveAndroid.initialize(this);
-
     }
 }

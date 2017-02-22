@@ -1,5 +1,7 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import com.activeandroid.Model;
+
 /**
  * Created by evgeny on 07.02.17.
  */
