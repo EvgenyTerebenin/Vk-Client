@@ -22,6 +22,9 @@
         </activity>
         <activity android:name=".viewpager.PhotoListActivity"
         android:label="Photo gallery"/>
+
+        <meta-data android:name="AA_DB_NAME" android:value="Pickrand" />
+        <meta-data android:name="AA_DB_VERSION" android:value="5" />
     </application>
 
 </manifest>
