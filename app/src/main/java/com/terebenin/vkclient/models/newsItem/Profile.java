@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by evgeny on 27.01.17.
  */
 @Table(name = "Profiles")
-public class Profile extends Model {
+public class Profile extends Model{
     @Column(name = "Profile_id")
     @SerializedName("id")
     private int profile_id;

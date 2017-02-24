@@ -30,6 +30,9 @@
             android:value="com.terebenin.vkclient.models.newsItem.Group,
                            com.terebenin.vkclient.models.newsItem.Item,
                            com.terebenin.vkclient.models.newsItem.Profile" />
+        <meta-data
+            android:name="AA_SERIALIZERS"
+            android:value="com.terebenin.vkclient.models.newsItem.AttachmentSerializer "/>
     </application>
 
 </manifest>

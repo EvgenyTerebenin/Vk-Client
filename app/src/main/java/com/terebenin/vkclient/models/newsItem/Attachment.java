@@ -1,7 +1,5 @@
 package com.terebenin.vkclient.models.newsItem;
 
-import com.activeandroid.Model;
-
 /**
  * Created by evgeny on 07.02.17.
  */
@@ -10,6 +8,10 @@ public class Attachment {
 
     private String type;
     private Photo photo;
+
+    public Attachment(String data) {
+
+    }
 
     public String getType() {
         return type;

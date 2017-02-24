@@ -1,5 +1,7 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import android.graphics.PorterDuff;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -10,7 +12,7 @@ import java.util.List;
  * Created by evgeny on 26.01.17.
  */
 @Table(name = "Items")
-public class Item extends Model {
+public class Item extends Model{
     /**
      * type : post
      * source_id : -65
