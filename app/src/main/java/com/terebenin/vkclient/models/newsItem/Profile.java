@@ -1,29 +1,36 @@
 package com.terebenin.vkclient.models.newsItem;
 
-import android.app.ProgressDialog;
-
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by evgeny on 27.01.17.
  */
 @Table(name = "Profiles")
-public class Profile extends Model{
+public class Profile extends Model {
+    @Expose
     @Column(name = "Profile_id")
     @SerializedName("id")
     private int profile_id;
+    @Expose
     @Column(name = "First_name")
     private String first_name;
+    @Expose
     @Column(name = "Last_name")
     private String last_name;
+    @Expose
     private int sex;
+    @Expose
     private String screen_name;
+    @Expose
     private String photo_50;
+    @Expose
     @Column(name = "Photo_100")
     private String photo_100;
+    @Expose
     private int online;
 
     public Profile() {

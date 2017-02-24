@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
@@ -28,15 +29,23 @@ public class Item extends Model{
      * reposts : {"count":0,"user_reposted":0}
      */
 
+    @Expose
     private String type;
+    @Expose
     @Column(name = "Source_id")
     private int source_id;
+    @Expose
     private int date;
+    @Expose
     private int post_id;
+    @Expose
     private String post_type;
+    @Expose
     @Column(name = "Text")
     private String text;
+    @Expose
     private int marked_as_ads;
+    @Expose
     private List<Attachment> attachments;
 
     public Item() {

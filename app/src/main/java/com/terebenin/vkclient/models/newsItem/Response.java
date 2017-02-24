@@ -1,5 +1,7 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 /**
@@ -7,10 +9,13 @@ import java.util.List;
  */
 
 public class Response {
-
+    @Expose
     private String next_from;
+    @Expose
     private List<Item> items;
+    @Expose
     private List<Profile> profiles;
+    @Expose
     private List<Group> groups;
 
     public String getNext_from() {

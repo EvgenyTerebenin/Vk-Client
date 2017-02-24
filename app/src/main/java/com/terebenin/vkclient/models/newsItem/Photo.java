@@ -3,20 +3,32 @@ package com.terebenin.vkclient.models.newsItem;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by evgeny on 07.02.17.
  */
 
 public class Photo implements Parcelable {
+    @Expose
     private int id;
+    @Expose
     private int album_id;
+    @Expose
     private int owner_id;
+    @Expose
     private String photo_75;
+    @Expose
     private String photo_130;
+    @Expose
     private String photo_604;
+    @Expose
     private int width;
+    @Expose
     private int height;
+    @Expose
     private String text;
+    @Expose
     private int date;
 
 

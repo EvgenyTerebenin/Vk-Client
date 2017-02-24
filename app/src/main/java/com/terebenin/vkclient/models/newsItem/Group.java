@@ -3,6 +3,7 @@ package com.terebenin.vkclient.models.newsItem;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -22,20 +23,29 @@ public class Group extends Model{
      * photo_100 : https://pp.vk.me/...19f/uerDsQqqKR8.jpg
      * photo_200 : https://pp.vk.me/...19d/ZhT4cvPw5J8.jpg
      */
-
+    @Expose
     @Column(name = "Group_id")
     @SerializedName("id")
     private int group_id;
+    @Expose
     @Column(name = "Name")
     private String name;
+    @Expose
     private String screen_name;
+    @Expose
     private int is_closed;
+    @Expose
     private String type;
+    @Expose
     private int is_admin;
+    @Expose
     private int is_member;
+    @Expose
     private String photo_50;
+    @Expose
     @Column(name = "Photo_100")
     private String photo_100;
+    @Expose
     private String photo_200;
 
     public Group() {
