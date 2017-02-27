@@ -1,7 +1,5 @@
 package com.terebenin.vkclient.models.newsItem;
 
-import android.graphics.PorterDuff;
-
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -13,7 +11,7 @@ import java.util.List;
  * Created by evgeny on 26.01.17.
  */
 @Table(name = "Items")
-public class Item extends Model{
+public class Item extends Model {
     /**
      * type : post
      * source_id : -65
@@ -30,21 +28,11 @@ public class Item extends Model{
      */
 
     @Expose
-    private String type;
-    @Expose
     @Column(name = "Source_id")
     private int source_id;
     @Expose
-    private int date;
-    @Expose
-    private int post_id;
-    @Expose
-    private String post_type;
-    @Expose
     @Column(name = "Text")
     private String text;
-    @Expose
-    private int marked_as_ads;
     @Expose
     @Column(name = "attachments")
     private List<Attachment> attachments;
@@ -61,44 +49,12 @@ public class Item extends Model{
         this.attachments = attachments;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public int getSource_id() {
         return source_id;
     }
 
     public void setSource_id(int source_id) {
         this.source_id = source_id;
-    }
-
-    public int getDate() {
-        return date;
-    }
-
-    public void setDate(int date) {
-        this.date = date;
-    }
-
-    public int getPost_id() {
-        return post_id;
-    }
-
-    public void setPost_id(int post_id) {
-        this.post_id = post_id;
-    }
-
-    public String getPost_type() {
-        return post_type;
-    }
-
-    public void setPost_type(String post_type) {
-        this.post_type = post_type;
     }
 
     public String getText() {
@@ -108,13 +64,4 @@ public class Item extends Model{
     public void setText(String text) {
         this.text = text;
     }
-
-    public int getMarked_as_ads() {
-        return marked_as_ads;
-    }
-
-    public void setMarked_as_ads(int marked_as_ads) {
-        this.marked_as_ads = marked_as_ads;
-    }
-
 }

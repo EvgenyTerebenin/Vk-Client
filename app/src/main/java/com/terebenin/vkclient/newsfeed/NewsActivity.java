@@ -61,10 +61,10 @@ public class NewsActivity extends AppCompatActivity {
         progressDialog.setMessage(getString(R.string.progDialMsg));
         progressDialog.setIndeterminate(true);
 
-        if (databaseList().length != 0) {
-        rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
-        recyclerView.setAdapter(rvAdapter);
-        } else {
+//        if (databaseList().length != 0) {
+//        rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
+//        recyclerView.setAdapter(rvAdapter);
+//        } else {
 
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
                 .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
@@ -92,7 +92,7 @@ public class NewsActivity extends AppCompatActivity {
                     }
                 });
     }
-    }
+//    }
 
     private Response getItemsFromDB() {
         Response responseDB = new Response();
