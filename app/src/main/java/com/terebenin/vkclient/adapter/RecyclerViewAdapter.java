@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.activeandroid.ActiveAndroid;
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.models.newsItem.Attachment;
@@ -102,6 +103,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
+
         List<Attachment> attachmentList = itemList.get(position).getAttachments();
         itemSourceId = itemList.get(position).getSource_id();
         itemText = itemList.get(position).getText();

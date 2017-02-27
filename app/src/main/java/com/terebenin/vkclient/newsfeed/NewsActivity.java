@@ -6,10 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.activeandroid.query.Select;
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.adapter.RecyclerViewAdapter;
+import com.terebenin.vkclient.models.newsItem.Group;
 import com.terebenin.vkclient.models.newsItem.Item;
+import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
@@ -57,6 +61,11 @@ public class NewsActivity extends AppCompatActivity {
         progressDialog.setMessage(getString(R.string.progDialMsg));
         progressDialog.setIndeterminate(true);
 
+        if (databaseList().length != 0) {
+        rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
+        recyclerView.setAdapter(rvAdapter);
+        } else {
+
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
                 .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
                 .subscribeOn(Schedulers.io())
@@ -67,21 +76,51 @@ public class NewsActivity extends AppCompatActivity {
 
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Toast.makeText(NewsActivity.this, R.string.cant_receive_data, Toast.LENGTH_SHORT).show();
                         Log.e(LOG_TAG, e.getMessage());
                     }
 
-
                     @Override
                     public void onNext(Response response) {
+                        saveEachItemToDB(response);
                         rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
                     }
                 });
+    }
+    }
+
+    private Response getItemsFromDB() {
+        Response responseDB = new Response();
+        responseDB.setItems(getItemList());
+        responseDB.setGroups(getGroupList());
+        responseDB.setProfiles(getProfileList());
+        return responseDB;
+    }
+
+    public static List<Item> getItemList() {
+        return new Select()
+                .all()
+                .from(Item.class)
+                .execute();
+    }
+
+    public static List<Group> getGroupList() {
+        return new Select()
+                .all()
+                .from(Group.class)
+                .execute();
+    }
+
+    public static List<Profile> getProfileList() {
+        return new Select()
+                .all()
+                .from(Profile.class)
+                .execute();
     }
 
     public Response getSortResponseOnlyWIthPhoto(Response response) {
@@ -99,6 +138,22 @@ public class NewsActivity extends AppCompatActivity {
         }
         response.setItems(itemListOnlyWithPhoto);
         return response;
+    }
+
+    public void saveEachItemToDB(Response response) {
+
+        for (int i = 0; i < response.getItems().size(); i++) {
+            Item item = response.getItems().get(i);
+            item.save();
+        }
+        for (int i = 0; i < response.getGroups().size(); i++) {
+            Group group = response.getGroups().get(i);
+            group.save();
+        }
+        for (int i = 0; i < response.getProfiles().size(); i++) {
+            Profile profile = response.getProfiles().get(i);
+            profile.save();
+        }
     }
 
 

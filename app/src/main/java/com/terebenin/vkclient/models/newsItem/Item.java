@@ -46,6 +46,7 @@ public class Item extends Model{
     @Expose
     private int marked_as_ads;
     @Expose
+    @Column(name = "attachments")
     private List<Attachment> attachments;
 
     public Item() {
