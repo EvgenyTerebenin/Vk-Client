@@ -30,7 +30,8 @@ public class LoginActivity extends Activity {
 
     private static final String[] sMyScope = new String[]{
             VKScope.FRIENDS,
-            VKScope.WALL
+            VKScope.WALL,
+            VKScope.OFFLINE
     };
 
     @Override
