@@ -64,16 +64,22 @@ public class NewsActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
 
         int databaseItemCount = new Select().from(Item.class).execute().size();
-        if(databaseItemCount != 0) {
+        if (databaseItemCount != 0) {
             rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
             recyclerView.setAdapter(rvAdapter);
+            getRetrofitRequest();
         } else {
+            getRetrofitRequest();
+        }
+
+    }
+
+
+    public void getRetrofitRequest() {
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
                 .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(progressDialog::show)
-                .doAfterTerminate(progressDialog::dismiss)
                 .subscribe(new Subscriber<Response>() {
 
                     @Override
@@ -98,7 +104,6 @@ public class NewsActivity extends AppCompatActivity {
                         Toast.makeText(NewsActivity.this, "Saved to DB " + new Select().from(Item.class).execute().size() + " items", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
     }
 
     private Response getItemsFromDB() {
