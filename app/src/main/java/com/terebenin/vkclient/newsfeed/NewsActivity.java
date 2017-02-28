@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.adapter.RecyclerViewAdapter;
@@ -61,10 +63,8 @@ public class NewsActivity extends AppCompatActivity {
         progressDialog.setMessage(getString(R.string.progDialMsg));
         progressDialog.setIndeterminate(true);
 
-//        if (databaseList().length != 0) {
-//        rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
-//        recyclerView.setAdapter(rvAdapter);
-//        } else {
+        rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
+        recyclerView.setAdapter(rvAdapter);
 
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
                 .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
@@ -82,13 +82,18 @@ public class NewsActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
                         Toast.makeText(NewsActivity.this, R.string.cant_receive_data, Toast.LENGTH_SHORT).show();
                         Log.e(LOG_TAG, e.getMessage());
+                        e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(Response response) {
+                        new Delete().from(Item.class).execute();
+                        new Delete().from(Group.class).execute();
+                        new Delete().from(Profile.class).execute();
                         saveEachItemToDB(response);
-                        rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
+                         rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
+                        Toast.makeText(NewsActivity.this, "Item count: " + new Select().from(Item.class).execute().size(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -142,17 +147,25 @@ public class NewsActivity extends AppCompatActivity {
 
     public void saveEachItemToDB(Response response) {
 
-        for (int i = 0; i < response.getItems().size(); i++) {
-            Item item = response.getItems().get(i);
-            item.save();
-        }
-        for (int i = 0; i < response.getGroups().size(); i++) {
-            Group group = response.getGroups().get(i);
-            group.save();
-        }
-        for (int i = 0; i < response.getProfiles().size(); i++) {
-            Profile profile = response.getProfiles().get(i);
-            profile.save();
+        ActiveAndroid.beginTransaction();
+        try {
+
+            for (int i = 0; i < response.getItems().size(); i++) {
+                Item item = response.getItems().get(i);
+                item.save();
+            }
+            for (int i = 0; i < response.getGroups().size(); i++) {
+                Group group = response.getGroups().get(i);
+                group.save();
+            }
+            for (int i = 0; i < response.getProfiles().size(); i++) {
+                Profile profile = response.getProfiles().get(i);
+                profile.save();
+            }
+
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
         }
     }
 
