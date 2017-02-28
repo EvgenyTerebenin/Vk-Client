@@ -15,6 +15,7 @@ import com.activeandroid.ActiveAndroid;
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.models.newsItem.Attachment;
+import com.terebenin.vkclient.models.newsItem.Attachments;
 import com.terebenin.vkclient.models.newsItem.Group;
 import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Photo;
@@ -86,7 +87,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         return null;
     }
 
-    ArrayList<Photo> getPhotoFromAttachments(List<Attachment> attachmentList) {
+    ArrayList<Photo> getPhotoFromAttachments(Attachments attachmentList) {
         ArrayList<Photo> photoList = new ArrayList<>();
 
         for (int i = 0; i < attachmentList.size(); i++) {
@@ -104,7 +105,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
 
-        List<Attachment> attachmentList = itemList.get(position).getAttachments();
+        Attachments attachmentList = itemList.get(position).getAttachments();
         itemSourceId = itemList.get(position).getSource_id();
         itemText = itemList.get(position).getText();
         Log.d(LOG_ATTACH, "Item " + position + ": " + String.valueOf(itemList.get(position).getAttachments()));

@@ -11,11 +11,10 @@ import java.util.List;
 public class AttachmentListSerializer extends TypeSerializer {
 
     private final static Gson gson = new Gson();
-    String jsonAttachmentList;
 
     @Override
     public Class<?> getDeserializedType() {
-        return List.class;
+        return Attachments.class;
     }
 
     @Override
@@ -28,8 +27,7 @@ public class AttachmentListSerializer extends TypeSerializer {
         if (data == null) {
             return null;
         } else {
-            jsonAttachmentList = gson.toJson(data);
-            return jsonAttachmentList;
+            return gson.toJson(data);
         }
     }
 
@@ -38,7 +36,7 @@ public class AttachmentListSerializer extends TypeSerializer {
         if (data == null) {
             return null;
         } else {
-            List<Attachment> attachmentList = gson.fromJson(jsonAttachmentList, List.class);
+            Attachments attachmentList = gson.fromJson((String) data, Attachments.class);
             return attachmentList;
         }
     }

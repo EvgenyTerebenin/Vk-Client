@@ -35,18 +35,14 @@ public class Item extends Model {
     private String text;
     @Expose
     @Column(name = "attachments")
-    private List<Attachment> attachments;
+    private Attachments attachments;
 
     public Item() {
         super();
     }
 
-    public List<Attachment> getAttachments() {
+    public Attachments getAttachments() {
         return attachments;
-    }
-
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
     }
 
     public int getSource_id() {

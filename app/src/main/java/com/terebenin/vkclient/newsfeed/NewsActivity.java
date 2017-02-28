@@ -63,9 +63,11 @@ public class NewsActivity extends AppCompatActivity {
         progressDialog.setMessage(getString(R.string.progDialMsg));
         progressDialog.setIndeterminate(true);
 
-        rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
-        recyclerView.setAdapter(rvAdapter);
-
+        int databaseItemCount = new Select().from(Item.class).execute().size();
+        if(databaseItemCount != 0) {
+            rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
+            recyclerView.setAdapter(rvAdapter);
+        } else {
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
                 .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
                 .subscribeOn(Schedulers.io())
@@ -91,13 +93,13 @@ public class NewsActivity extends AppCompatActivity {
                         new Delete().from(Group.class).execute();
                         new Delete().from(Profile.class).execute();
                         saveEachItemToDB(response);
-                         rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
+                        rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
-                        Toast.makeText(NewsActivity.this, "Item count: " + new Select().from(Item.class).execute().size(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewsActivity.this, "Saved to DB " + new Select().from(Item.class).execute().size() + " items", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-//    }
+    }
 
     private Response getItemsFromDB() {
         Response responseDB = new Response();
@@ -109,21 +111,18 @@ public class NewsActivity extends AppCompatActivity {
 
     public static List<Item> getItemList() {
         return new Select()
-                .all()
                 .from(Item.class)
                 .execute();
     }
 
     public static List<Group> getGroupList() {
         return new Select()
-                .all()
                 .from(Group.class)
                 .execute();
     }
 
     public static List<Profile> getProfileList() {
         return new Select()
-                .all()
                 .from(Profile.class)
                 .execute();
     }
