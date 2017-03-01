@@ -42,7 +42,6 @@ public class NewsActivity extends AppCompatActivity {
 
     @BindView(R.id.uiRecyclerView) RecyclerView recyclerView;
     RecyclerViewAdapter rvAdapter;
-    ProgressDialog progressDialog;
     private Subscription mItemsSubscription;
     String token;
 
@@ -57,11 +56,6 @@ public class NewsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
-
-        progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle(getString(R.string.progDialTitle));
-        progressDialog.setMessage(getString(R.string.progDialMsg));
-        progressDialog.setIndeterminate(true);
 
         int databaseItemCount = new Select().from(Item.class).execute().size();
         if (databaseItemCount != 0) {

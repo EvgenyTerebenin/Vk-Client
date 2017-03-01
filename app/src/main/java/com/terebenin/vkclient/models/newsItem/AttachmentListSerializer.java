@@ -2,7 +2,6 @@ package com.terebenin.vkclient.models.newsItem;
 
 import com.activeandroid.serializer.TypeSerializer;
 import com.google.gson.Gson;
-import java.util.List;
 
 /**
  * Created by evgeny on 24.02.17.
