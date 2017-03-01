@@ -73,7 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     private Profile getProfileById(int itemSourceId, List<Profile> profileList) {
         for (int i = 0; i < profileList.size(); i++) {
-            if (itemSourceId == profileList.get(i).getProfile_id()) return profileList.get(i);
+            if (itemSourceId == profileList.get(i).getProfileId()) return profileList.get(i);
         }
         return null;
     }
@@ -104,7 +104,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
     public void onBindViewHolder(NewsItemHolder holder, int position) {
 
         Attachments attachmentList = itemList.get(position).getAttachments();
-        itemSourceId = itemList.get(position).getSource_id();
+        itemSourceId = itemList.get(position).getSourceId();
         itemText = itemList.get(position).getText();
         Log.d(LOG_ATTACH, "Item " + position + ": " + String.valueOf(itemList.get(position).getAttachments()));
 
@@ -125,8 +125,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
             Picasso.with(mContext).load(group.getPhoto100()).into(holder.ivPostAvatar);
         } else {
             Profile profile = getProfileById(itemSourceId, profileList);
-            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirst_name(), profile.getLast_name())));
-            Picasso.with(mContext).load(profile.getPhoto_100()).into(holder.ivPostAvatar);
+            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirstName(), profile.getLastName())));
+            Picasso.with(mContext).load(profile.getPhoto100()).into(holder.ivPostAvatar);
         }
 
         if (itemText != null) {

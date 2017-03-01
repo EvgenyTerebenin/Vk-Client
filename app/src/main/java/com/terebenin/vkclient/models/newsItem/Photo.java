@@ -17,8 +17,6 @@ public class Photo implements Parcelable {
     @Expose
     private int owner_id;
     @Expose
-    private String photo_75;
-    @Expose
     private String photo_130;
     @Expose
     private String photo_604;
@@ -43,24 +41,24 @@ public class Photo implements Parcelable {
     }
 
 
-    public String getPhoto_130() {
+    public String getPhoto130() {
         return photo_130;
 
     }
 
 
-    public void setPhoto_130(String photo_130) {
+    public void setPhoto130(String photo_130) {
         this.photo_130 = photo_130;
 
     }
 
-    public String getPhoto_604() {
+    public String getPhoto604() {
         return photo_604;
 
     }
 
 
-    public void setPhoto_604(String photo_604) {
+    public void setPhoto604(String photo_604) {
         this.photo_604 = photo_604;
 
     }
@@ -85,7 +83,6 @@ public class Photo implements Parcelable {
         dest.writeInt(this.id);
         dest.writeInt(this.album_id);
         dest.writeInt(this.owner_id);
-        dest.writeString(this.photo_75);
         dest.writeString(this.photo_130);
         dest.writeString(this.photo_604);
         dest.writeInt(this.width);
@@ -101,7 +98,6 @@ public class Photo implements Parcelable {
         this.id = in.readInt();
         this.album_id = in.readInt();
         this.owner_id = in.readInt();
-        this.photo_75 = in.readString();
         this.photo_130 = in.readString();
         this.photo_604 = in.readString();
         this.width = in.readInt();

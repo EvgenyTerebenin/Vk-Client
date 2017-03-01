@@ -45,11 +45,11 @@ public class Item extends Model {
         return attachments;
     }
 
-    public int getSource_id() {
+    public int getSourceId() {
         return source_id;
     }
 
-    public void setSource_id(int source_id) {
+    public void setSourceId(int source_id) {
         this.source_id = source_id;
     }
 

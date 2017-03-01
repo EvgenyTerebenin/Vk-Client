@@ -1,6 +1,5 @@
 package com.terebenin.vkclient.newsfeed;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,15 +60,15 @@ public class NewsActivity extends AppCompatActivity {
         if (databaseItemCount != 0) {
             rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
             recyclerView.setAdapter(rvAdapter);
-            getRetrofitRequest();
+            fetchItemsFromWeb();
         } else {
-            getRetrofitRequest();
+            fetchItemsFromWeb();
         }
 
     }
 
 
-    public void getRetrofitRequest() {
+    public void fetchItemsFromWeb() {
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
                 .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
                 .subscribeOn(Schedulers.io())

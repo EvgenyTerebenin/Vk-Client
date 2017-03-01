@@ -57,7 +57,7 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        Picasso.with(mContext).load(photosList.get(position).getPhoto_130()).into(imageView);
+        Picasso.with(mContext).load(photosList.get(position).getPhoto130()).into(imageView);
         return imageView;
     }
 
