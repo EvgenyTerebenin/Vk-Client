@@ -43,9 +43,7 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the screen's density scale
         final float scale = mContext.getResources().getDisplayMetrics().density;
-        // Convert the dps to pixels, based on density scale
         int mGestureThreshold = (int) (GESTURE_THRESHOLD_DP * scale + 0.5f);
 
         ImageView imageView;
