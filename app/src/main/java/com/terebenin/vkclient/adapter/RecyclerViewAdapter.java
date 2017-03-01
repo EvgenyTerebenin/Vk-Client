@@ -80,7 +80,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     private Group getGroupById(int itemSourceId, List<Group> groupList) {
         for (int i = 0; i < groupList.size(); i++) {
-            if (Math.abs(itemSourceId) == groupList.get(i).getGroup_id()) return groupList.get(i);
+            if (Math.abs(itemSourceId) == groupList.get(i).getGroupId()) return groupList.get(i);
         }
         return null;
     }
@@ -122,7 +122,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         if (itemSourceId < 0) {
             Group group = getGroupById(itemSourceId, groupList);
             holder.tvPostOwner.setText(fromHtml(group.getName()));
-            Picasso.with(mContext).load(group.getPhoto_100()).into(holder.ivPostAvatar);
+            Picasso.with(mContext).load(group.getPhoto100()).into(holder.ivPostAvatar);
         } else {
             Profile profile = getProfileById(itemSourceId, profileList);
             holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirst_name(), profile.getLast_name())));

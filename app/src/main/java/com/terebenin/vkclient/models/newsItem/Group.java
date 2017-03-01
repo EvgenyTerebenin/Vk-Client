@@ -31,6 +31,7 @@ public class Group extends Model {
     @Column(name = "Name")
     private String name;
     @Expose
+
     @Column(name = "Photo_100")
     private String photo_100;
 
@@ -39,11 +40,11 @@ public class Group extends Model {
         super();
     }
 
-    public int getGroup_id() {
+    public int getGroupId() {
         return group_id;
     }
 
-    public void setGroup_Id(int id) {
+    public void setGroupId(int id) {
         this.group_id = group_id;
     }
 
@@ -55,11 +56,11 @@ public class Group extends Model {
         this.name = name;
     }
 
-    public String getPhoto_100() {
+    public String getPhoto100() {
         return photo_100;
     }
 
-    public void setPhoto_100(String photo_100) {
+    public void setPhoto100(String photo_100) {
         this.photo_100 = photo_100;
     }
 
