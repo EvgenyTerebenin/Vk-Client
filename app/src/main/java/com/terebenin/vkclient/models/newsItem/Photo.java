@@ -3,20 +3,30 @@ package com.terebenin.vkclient.models.newsItem;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by evgeny on 07.02.17.
  */
 
 public class Photo implements Parcelable {
+    @Expose
     private int id;
+    @Expose
     private int album_id;
+    @Expose
     private int owner_id;
-    private String photo_75;
+    @Expose
     private String photo_130;
+    @Expose
     private String photo_604;
+    @Expose
     private int width;
+    @Expose
     private int height;
+    @Expose
     private String text;
+    @Expose
     private int date;
 
 
@@ -31,82 +41,27 @@ public class Photo implements Parcelable {
     }
 
 
-    public int getAlbum_id() {
-        return album_id;
-    }
-
-
-    public void setAlbum_id(int album_id) {
-        this.album_id = album_id;
-
-    }
-
-    public int getOwner_id() {
-        return owner_id;
-    }
-
-    public void setOwner_id(int owner_id) {
-        this.owner_id = owner_id;
-
-    }
-
-    public String getPhoto_75() {
-        return photo_75;
-    }
-
-
-    public void setPhoto_75(String photo_75) {
-        this.photo_75 = photo_75;
-
-    }
-
-
-    public String getPhoto_130() {
+    public String getPhoto130() {
         return photo_130;
 
     }
 
 
-    public void setPhoto_130(String photo_130) {
+    public void setPhoto130(String photo_130) {
         this.photo_130 = photo_130;
 
     }
 
-    public String getPhoto_604() {
+    public String getPhoto604() {
         return photo_604;
 
     }
 
 
-    public void setPhoto_604(String photo_604) {
+    public void setPhoto604(String photo_604) {
         this.photo_604 = photo_604;
 
     }
-
-
-    public int getWidth() {
-        return width;
-
-    }
-
-
-    public void setWidth(int width) {
-        this.width = width;
-
-    }
-
-
-    public int getHeight() {
-        return height;
-
-    }
-
-
-    public void setHeight(int height) {
-        this.height = height;
-
-    }
-
 
     public String getText() {
         return text;
@@ -115,17 +70,6 @@ public class Photo implements Parcelable {
 
     public void setText(String text) {
         this.text = text;
-
-    }
-
-    public int getDate() {
-        return date;
-
-    }
-
-
-    public void setDate(int date) {
-        this.date = date;
 
     }
 
@@ -139,7 +83,6 @@ public class Photo implements Parcelable {
         dest.writeInt(this.id);
         dest.writeInt(this.album_id);
         dest.writeInt(this.owner_id);
-        dest.writeString(this.photo_75);
         dest.writeString(this.photo_130);
         dest.writeString(this.photo_604);
         dest.writeInt(this.width);
@@ -155,7 +98,6 @@ public class Photo implements Parcelable {
         this.id = in.readInt();
         this.album_id = in.readInt();
         this.owner_id = in.readInt();
-        this.photo_75 = in.readString();
         this.photo_130 = in.readString();
         this.photo_604 = in.readString();
         this.width = in.readInt();

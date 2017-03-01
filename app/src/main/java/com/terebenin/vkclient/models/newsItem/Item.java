@@ -1,12 +1,17 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 /**
  * Created by evgeny on 26.01.17.
  */
-
-public class Item {
+@Table(name = "Items")
+public class Item extends Model {
     /**
      * type : post
      * source_id : -65
@@ -22,62 +27,30 @@ public class Item {
      * reposts : {"count":0,"user_reposted":0}
      */
 
-    private String type;
+    @Expose
+    @Column(name = "Source_id")
     private int source_id;
-    private int date;
-    private int post_id;
-    private String post_type;
+    @Expose
+    @Column(name = "Text")
     private String text;
-    private int marked_as_ads;
-    private List<Attachment> attachments;
+    @Expose
+    @Column(name = "attachments")
+    private Attachments attachments;
 
+    public Item() {
+        super();
+    }
 
-    public List<Attachment> getAttachments() {
+    public Attachments getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getSource_id() {
+    public int getSourceId() {
         return source_id;
     }
 
-    public void setSource_id(int source_id) {
+    public void setSourceId(int source_id) {
         this.source_id = source_id;
-    }
-
-    public int getDate() {
-        return date;
-    }
-
-    public void setDate(int date) {
-        this.date = date;
-    }
-
-    public int getPost_id() {
-        return post_id;
-    }
-
-    public void setPost_id(int post_id) {
-        this.post_id = post_id;
-    }
-
-    public String getPost_type() {
-        return post_type;
-    }
-
-    public void setPost_type(String post_type) {
-        this.post_type = post_type;
     }
 
     public String getText() {
@@ -87,13 +60,4 @@ public class Item {
     public void setText(String text) {
         this.text = text;
     }
-
-    public int getMarked_as_ads() {
-        return marked_as_ads;
-    }
-
-    public void setMarked_as_ads(int marked_as_ads) {
-        this.marked_as_ads = marked_as_ads;
-    }
-
 }

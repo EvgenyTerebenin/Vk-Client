@@ -2,12 +2,13 @@ package com.terebenin.vkclient;
 
 import android.content.Intent;
 
+import com.activeandroid.ActiveAndroid;
 import com.terebenin.vkclient.login.LoginActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
 
-public class Application extends android.app.Application {
+public class Application extends com.activeandroid.app.Application {
 
     VKAccessTokenTracker vkAccessTokenTracker = new VKAccessTokenTracker() {
         @Override
@@ -25,5 +26,6 @@ public class Application extends android.app.Application {
         super.onCreate();
         vkAccessTokenTracker.startTracking();
         VKSdk.initialize(this);
+
     }
 }

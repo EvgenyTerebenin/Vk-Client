@@ -10,8 +10,6 @@ import com.terebenin.vkclient.models.newsItem.Photo;
 
 import java.util.ArrayList;
 
-import butterknife.BindString;
-
 /**
  * Created by evgeny on 16.02.17.
  */
@@ -29,7 +27,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PhotoItemFragment.newInstance(photos.get(position).getPhoto_604());
+        return PhotoItemFragment.newInstance(photos.get(position).getPhoto604());
     }
 
 

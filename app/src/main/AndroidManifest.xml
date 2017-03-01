@@ -21,7 +21,18 @@
                   android:label="News">
         </activity>
         <activity android:name=".viewpager.PhotoListActivity"
-        android:label="Photo gallery"/>
+                  android:label="Photo gallery"/>
+
+        <meta-data android:name="AA_DB_NAME" android:value="Vkclient.db"/>
+        <meta-data android:name="AA_DB_VERSION" android:value="3"/>
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.terebenin.vkclient.models.newsItem.Item,
+                           com.terebenin.vkclient.models.newsItem.Group,
+                           com.terebenin.vkclient.models.newsItem.Profile"/>
+        <meta-data
+            android:name="AA_SERIALIZERS"
+            android:value="com.terebenin.vkclient.models.newsItem.AttachmentListSerializer "/>
     </application>
 
 </manifest>

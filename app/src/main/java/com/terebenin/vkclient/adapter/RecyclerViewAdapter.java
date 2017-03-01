@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 import com.terebenin.vkclient.R;
-import com.terebenin.vkclient.models.newsItem.Attachment;
+import com.terebenin.vkclient.models.newsItem.Attachments;
 import com.terebenin.vkclient.models.newsItem.Group;
 import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Photo;
@@ -73,19 +73,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     private Profile getProfileById(int itemSourceId, List<Profile> profileList) {
         for (int i = 0; i < profileList.size(); i++) {
-            if (itemSourceId == profileList.get(i).getId()) return profileList.get(i);
+            if (itemSourceId == profileList.get(i).getProfileId()) return profileList.get(i);
         }
         return null;
     }
 
     private Group getGroupById(int itemSourceId, List<Group> groupList) {
         for (int i = 0; i < groupList.size(); i++) {
-            if (Math.abs(itemSourceId) == groupList.get(i).getId()) return groupList.get(i);
+            if (Math.abs(itemSourceId) == groupList.get(i).getGroupId()) return groupList.get(i);
         }
         return null;
     }
 
-    ArrayList<Photo> getPhotoFromAttachments(List<Attachment> attachmentList) {
+    ArrayList<Photo> getPhotoFromAttachments(Attachments attachmentList) {
         ArrayList<Photo> photoList = new ArrayList<>();
 
         for (int i = 0; i < attachmentList.size(); i++) {
@@ -102,8 +102,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
 
     @Override
     public void onBindViewHolder(NewsItemHolder holder, int position) {
-        List<Attachment> attachmentList = itemList.get(position).getAttachments();
-        itemSourceId = itemList.get(position).getSource_id();
+
+        Attachments attachmentList = itemList.get(position).getAttachments();
+        itemSourceId = itemList.get(position).getSourceId();
         itemText = itemList.get(position).getText();
         Log.d(LOG_ATTACH, "Item " + position + ": " + String.valueOf(itemList.get(position).getAttachments()));
 
@@ -121,11 +122,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<NewsItemHolder> {
         if (itemSourceId < 0) {
             Group group = getGroupById(itemSourceId, groupList);
             holder.tvPostOwner.setText(fromHtml(group.getName()));
-            Picasso.with(mContext).load(group.getPhoto_100()).into(holder.ivPostAvatar);
+            Picasso.with(mContext).load(group.getPhoto100()).into(holder.ivPostAvatar);
         } else {
             Profile profile = getProfileById(itemSourceId, profileList);
-            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirst_name(), profile.getLast_name())));
-            Picasso.with(mContext).load(profile.getPhoto_100()).into(holder.ivPostAvatar);
+            holder.tvPostOwner.setText(fromHtml(String.format("%s %s", profile.getFirstName(), profile.getLastName())));
+            Picasso.with(mContext).load(profile.getPhoto100()).into(holder.ivPostAvatar);
         }
 
         if (itemText != null) {

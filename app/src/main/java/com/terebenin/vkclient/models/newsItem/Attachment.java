@@ -1,13 +1,20 @@
 package com.terebenin.vkclient.models.newsItem;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by evgeny on 07.02.17.
  */
 
 public class Attachment {
-
+    @Expose
     private String type;
+    @Expose
     private Photo photo;
+
+    public Attachment(String data) {
+
+    }
 
     public String getType() {
         return type;

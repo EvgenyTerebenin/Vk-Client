@@ -1,15 +1,20 @@
 package com.terebenin.vkclient.newsfeed;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
+import com.activeandroid.query.Select;
 import com.terebenin.vkclient.R;
 import com.terebenin.vkclient.adapter.RecyclerViewAdapter;
+import com.terebenin.vkclient.models.newsItem.Group;
 import com.terebenin.vkclient.models.newsItem.Item;
+import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
@@ -36,7 +41,6 @@ public class NewsActivity extends AppCompatActivity {
 
     @BindView(R.id.uiRecyclerView) RecyclerView recyclerView;
     RecyclerViewAdapter rvAdapter;
-    ProgressDialog progressDialog;
     private Subscription mItemsSubscription;
     String token;
 
@@ -52,36 +56,73 @@ public class NewsActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
 
-        progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle(getString(R.string.progDialTitle));
-        progressDialog.setMessage(getString(R.string.progDialMsg));
-        progressDialog.setIndeterminate(true);
+        int databaseItemCount = new Select().from(Item.class).execute().size();
+        if (databaseItemCount != 0) {
+            rvAdapter = new RecyclerViewAdapter(getItemsFromDB(), NewsActivity.this);
+            recyclerView.setAdapter(rvAdapter);
+            fetchItemsFromWeb();
+        } else {
+            fetchItemsFromWeb();
+        }
 
+    }
+
+
+    public void fetchItemsFromWeb() {
         mItemsSubscription = RetrofitSingleton.getInstance().getRequest().getResponseHolder("post", 100, token, 5.62)
                 .map(responseHolder -> getSortResponseOnlyWIthPhoto(responseHolder.getResponse()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(progressDialog::show)
-                .doAfterTerminate(progressDialog::dismiss)
                 .subscribe(new Subscriber<Response>() {
 
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Toast.makeText(NewsActivity.this, R.string.cant_receive_data, Toast.LENGTH_SHORT).show();
                         Log.e(LOG_TAG, e.getMessage());
+                        e.printStackTrace();
                     }
-
 
                     @Override
                     public void onNext(Response response) {
+                        new Delete().from(Item.class).execute();
+                        new Delete().from(Group.class).execute();
+                        new Delete().from(Profile.class).execute();
+                        saveEachItemToDB(response);
                         rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
                         recyclerView.setAdapter(rvAdapter);
+                        Toast.makeText(NewsActivity.this, "Saved to DB " + new Select().from(Item.class).execute().size() + " items", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private Response getItemsFromDB() {
+        Response responseDB = new Response();
+        responseDB.setItems(getItemList());
+        responseDB.setGroups(getGroupList());
+        responseDB.setProfiles(getProfileList());
+        return responseDB;
+    }
+
+    public static List<Item> getItemList() {
+        return new Select()
+                .from(Item.class)
+                .execute();
+    }
+
+    public static List<Group> getGroupList() {
+        return new Select()
+                .from(Group.class)
+                .execute();
+    }
+
+    public static List<Profile> getProfileList() {
+        return new Select()
+                .from(Profile.class)
+                .execute();
     }
 
     public Response getSortResponseOnlyWIthPhoto(Response response) {
@@ -99,6 +140,30 @@ public class NewsActivity extends AppCompatActivity {
         }
         response.setItems(itemListOnlyWithPhoto);
         return response;
+    }
+
+    public void saveEachItemToDB(Response response) {
+
+        ActiveAndroid.beginTransaction();
+        try {
+
+            for (int i = 0; i < response.getItems().size(); i++) {
+                Item item = response.getItems().get(i);
+                item.save();
+            }
+            for (int i = 0; i < response.getGroups().size(); i++) {
+                Group group = response.getGroups().get(i);
+                group.save();
+            }
+            for (int i = 0; i < response.getProfiles().size(); i++) {
+                Profile profile = response.getProfiles().get(i);
+                profile.save();
+            }
+
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 
 
