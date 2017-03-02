@@ -93,6 +93,7 @@ public class NewsActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(NewsActivity.this, R.string.cant_receive_data, Toast.LENGTH_SHORT).show();
+                        swipeContainer.setRefreshing(false);
                         Log.e(LOG_TAG, e.getMessage());
                         e.printStackTrace();
                     }
