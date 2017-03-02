@@ -1,6 +1,7 @@
 package com.terebenin.vkclient.newsfeed;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.terebenin.vkclient.models.newsItem.Group;
 import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
+import com.terebenin.vkclient.models.newsItem.ResponseHolder;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
 
@@ -36,12 +38,13 @@ import rx.schedulers.Schedulers;
 
 public class NewsActivity extends AppCompatActivity {
 
+    //    private SwipeRefreshLayout swipeContainer;
+    private Subscription mItemsSubscription;
     private static final String LOG_TAG = "LOG_TAG";
     static final String TYPE_PHOTO = "photo";
-
     @BindView(R.id.uiRecyclerView) RecyclerView recyclerView;
+    @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
     RecyclerViewAdapter rvAdapter;
-    private Subscription mItemsSubscription;
     String token;
 
 
@@ -51,10 +54,18 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_news);
         ButterKnife.bind(this);
+
+        swipeContainer.setOnRefreshListener(() -> fetchItemsFromWeb());
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         token = VKAccessToken.currentToken().accessToken;
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(llm);
+
 
         int databaseItemCount = new Select().from(Item.class).execute().size();
         if (databaseItemCount != 0) {
@@ -93,10 +104,13 @@ public class NewsActivity extends AppCompatActivity {
                         new Delete().from(Profile.class).execute();
                         saveEachItemToDB(response);
                         rvAdapter = new RecyclerViewAdapter(response, NewsActivity.this);
+                        rvAdapter.notifyDataSetChanged();
                         recyclerView.setAdapter(rvAdapter);
                         Toast.makeText(NewsActivity.this, "Saved to DB " + new Select().from(Item.class).execute().size() + " items", Toast.LENGTH_SHORT).show();
+                        swipeContainer.setRefreshing(false);
                     }
                 });
+
     }
 
     private Response getItemsFromDB() {
