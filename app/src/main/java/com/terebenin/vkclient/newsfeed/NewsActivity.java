@@ -17,7 +17,6 @@ import com.terebenin.vkclient.models.newsItem.Group;
 import com.terebenin.vkclient.models.newsItem.Item;
 import com.terebenin.vkclient.models.newsItem.Profile;
 import com.terebenin.vkclient.models.newsItem.Response;
-import com.terebenin.vkclient.models.newsItem.ResponseHolder;
 import com.terebenin.vkclient.rest.RetrofitSingleton;
 import com.vk.sdk.VKAccessToken;
 
@@ -38,7 +37,6 @@ import rx.schedulers.Schedulers;
 
 public class NewsActivity extends AppCompatActivity {
 
-    //    private SwipeRefreshLayout swipeContainer;
     private Subscription mItemsSubscription;
     private static final String LOG_TAG = "LOG_TAG";
     static final String TYPE_PHOTO = "photo";
