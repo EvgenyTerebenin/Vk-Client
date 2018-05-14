@@ -8,6 +8,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 25
     }
+
 }
 
 configurations {

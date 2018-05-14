@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Vk-Client.iml" filepath="$PROJECT_DIR$/Vk-Client.iml" />
-      <module fileurl="file://C:\Users\TEREB\StudioProjects\pet_projects\Vk-Client\Vkclient.iml" filepath="C:\Users\TEREB\StudioProjects\pet_projects\Vk-Client\Vkclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vkclient.iml" filepath="$PROJECT_DIR$/Vkclient.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/vksdk_library/vksdk_library.iml" filepath="$PROJECT_DIR$/vksdk_library/vksdk_library.iml" />
     </modules>
